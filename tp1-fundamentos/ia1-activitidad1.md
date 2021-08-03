@@ -71,3 +71,8 @@ Integrantes:
   - Barbeito, Sofia. 
   - Cairo, Lucia.
   - Serrano, Cristian.
+
+<br></br>
+Bibliografía:
+  - https://es.wikipedia.org/wiki/Aplicaciones_de_la_inteligencia_artificial
+  - https://www.oracle.com/mx/artificial-intelligence/what-is-ai/
