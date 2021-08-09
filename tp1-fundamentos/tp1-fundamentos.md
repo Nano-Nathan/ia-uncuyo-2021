@@ -2,7 +2,7 @@
 
 **[Alan Tirung][0]** en su famoso artículo *[Computing Machinery and Intelligence][1]* sugirió que en vez de preguntar 
 si las máquinas pueden pensar, deberíamos preguntar si las máquinas pueden aprobar un test de inteligencia conductiva (*[Test de Turing][2]*).
-El cual consiste en una conversación entre un *ChatBot* y un *Interlocutor* la cual tiene una duración de 5 minutos. 
+El *test de turing* consiste en una conversación entre un *"ChatBot"* y un *"Interlocutor"* la cual tiene una duración de 5 minutos. 
 El *Interlocutor* debe averiguar si se está comunicando con un programa o una persona, si la IA engaña al usuario en cuestion un 30% del 
 tiempo, ésta pasará la prueba.
 
