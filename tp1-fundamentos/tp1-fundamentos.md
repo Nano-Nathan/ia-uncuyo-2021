@@ -42,12 +42,12 @@ En 1986 los hermanos *[Hubert][4]* y *[Stuart][5] Dreyfus* proponen un proceso d
 
 Muchos filósofos han afirmado que una máquina que pasa el Test de Turing no quiere decir que realmente esté pensando, sino que solamente es una simulación. Esto es lo que Turing llama el *argumento de la consciencia*, la máquina tiene que ser consciente de sus propias acciones y estados mentales. Aunque la consciencia sea un tema importante, la máquina debería sentir emociones. Otros se centran en la intencionalidad, esto es, en la cuestión de si las creencias, deseos y otras representaciones supuestas de la máquina son de verdad algo que pertenece al mundo real.
 
-### [La teoría del funcionalismo][]
+### [La teoría del funcionalismo][11]
 > Un estado mental es cualquier condición causal inmediata entre la entrada y la salida. 
 
 Bajo esta teoría, dos sistemas con procesos causales isomórficos tendrían los mismos estados mentales. Por tanto, un programa informático podría tener los mismos estados mentales que una persona. La suposición es que existe algún nivel de abstracción por debajo del cual no importa una implementación específica, siempre que los procesos sean isomórficos hasta este nivel, tendrán lugar los mismos estados mentales.
 
-### [La teoría del naturalismo biológico][]
+### [La teoría del naturalismo biológico][12]
 > Los estados mentales son características emergentes de alto nivel originadas por procesos neurológicos de bajo nivel en las neuronas, y lo que importa son las propiedades de las neuronas.
 
 Así pues, los estados mentales no se pueden duplicar justo en la base de algún programa que tiene la misma estructura funcional con el mismo comportamiento de entrada y salida. Necesitaríamos que el programa se ejecutará en una arquitectura con la misma potencia causal que las neuronas. La teoría no dice por qué las neuronas tienen esta potencia causal, ni tampoco qué otras instanciaciones físicas podrían tenerla o no.
@@ -55,9 +55,9 @@ Así pues, los estados mentales no se pueden duplicar justo en la base de algún
 ### El problema de mente-cuerpo
 
 Este problema cuestiona cómo se relacionan los estados y los procesos mentales con los del cerebro.
-##### 1) **[Teoría dualista.][]**
+##### 1) **[Teoría dualista.][13]**
 > *"El alma y el cuerpo son dos tipos de cosas diferentes." René Descartes*.
-##### 2) **[Teoría monista][] (materialista).**
+##### 2) **[Teoría monista][14] (materialista).**
 > *"No existen cosas tales como almas inmateriales sino sólo objetos materiales. Como consecuencia, los estados mentales son estados del cerebro."*
 - *Problemas*. 
     1) Libertad de elección: La mayoría de los filósofos consideran que se necesita una reconstitución de nuestra noción sobre esto.
@@ -65,15 +65,15 @@ Este problema cuestiona cómo se relacionan los estados y los procesos mentales 
 
 # La ética y los riesgos de desarrollar IA
 
-Muchas de las nuevas tecnologías han tenido efectos negativos no intencionados: El motor de combustión trajo la polución ambiental y la pavimentación del paraíso, la fisión nuclear produjo el desastre de Chernobyl, la Isla de las Tres Millas y la amenaza de la destrucción mundial. Existe incluso un manual sobre la *[Ética de los Computadores][]*. Entonces, ¿Deberíamos desarrollar IA? La IA parece exponer problemas nuevos:
+Muchas de las nuevas tecnologías han tenido efectos negativos no intencionados: El motor de combustión trajo la polución ambiental y la pavimentación del paraíso, la fisión nuclear produjo el desastre de Chernobyl, la Isla de las Tres Millas y la amenaza de la destrucción mundial. Existe incluso un manual sobre la *[Ética de los Computadores][15]*. Entonces, ¿Deberíamos desarrollar IA? La IA parece exponer problemas nuevos:
 - **Las personas podrían perder:**
     - **Sus trabajos por la automatización:** Se podría decir que miles de trabajadores han sido desplazados por IA, pero si eliminamos estos trabajos no existirían, ya que la mano de obra humana añadiría un coste adicional. Hasta ahora, la automatización ha creado más y mejores trabajos de los que ha eliminado.
 
     - **El sentido de ser únicos:** Las personas que trabajan en las industrias relacionadas con el conocimiento han descubierto que forman parte de un sistema computarizado integrado que funciona 24 horas al día. La IA incrementa el ritmo de la innovación tecnológica y contribuye así a lo recién mencionado, pero también mantiene la promesa de permitirnos ahorrar tiempo y que nuestros agentes automatizados hagan las cosas por sí solos.
 
-    - **Algunos derechos privados:** El sistema clasificado *[Echelon][]* del gobierno americano, está respaldado por computadores que utilizan traducción de lenguajes, reconocimiento de voz y palabras clave que buscan pasar por la criba automáticamente todo el tráfico de llamadas telefónicas, correos electrónicos, faxes y telex.
+    - **Algunos derechos privados:** El sistema clasificado *[Echelon][16]* del gobierno americano, está respaldado por computadores que utilizan traducción de lenguajes, reconocimiento de voz y palabras clave que buscan pasar por la criba automáticamente todo el tráfico de llamadas telefónicas, correos electrónicos, faxes y telex.
 
-- **Las personas podrían tener mucho o poco tiempo de ocio:** La investigación en IA hace posible la idea de que los hombres sean autómatas, una idea que produce pérdida de autonomía o incluso de humanidad. Aunque sea una materia de gran éxito, quizá sea amenazante para las suposiciones morales de la sociedad del siglo XXI al igual que la *[teoría de la evolución][]* lo fue para los del siglo XIX.
+- **Las personas podrían tener mucho o poco tiempo de ocio:** La investigación en IA hace posible la idea de que los hombres sean autómatas, una idea que produce pérdida de autonomía o incluso de humanidad. Aunque sea una materia de gran éxito, quizá sea amenazante para las suposiciones morales de la sociedad del siglo XXI al igual que la *[teoría de la evolución][17]* lo fue para los del siglo XIX.
 
 - **La utilización de IA podría llevar a la pérdida de responsabilidad:** Si los sistemas expertos se hacen más fiables y precisos que los médicos que hacen diagnósticos, estos podrían tener obligaciones legales si no utilizan las recomendaciones generadas por dichos sistemas. Si las transacciones monetarias las realiza un agente inteligente en nombre de alguien, ¿Está obligado por las deudas incurridas? ¿Sería posible que un agente inteligente tenga activos o realice compras en su propio nombre? Por el momento ningún programa ha recibido un estado legal como individuo con fines financieros, pero no se sabe si a futuro esto será cierto.
 
@@ -82,8 +82,11 @@ Muchas de las nuevas tecnologías han tenido efectos negativos no intencionados:
 
 ## *Conclusión*
 
+Luego de leer la cantidad de información brindada, se llega pensar que la inteligencia artificial tiene tantos beneficios como perjuicios. Ambos afectando a esta ciencia con la misma calidad, hay que saber pensar e interpretar todo lo que se puede hacer y el gran abanico de posibilidades que aún no se han descubierto pero que en un futuro, sin duda alguna, lo harán, ya sean las mismas inteligencias programadas como los desarrolladores a cargo de mantenerlas y/o interpretar los datos que se han devuelto. 
 
-[Mapa mental][mapa]
+Tambien hay que tener la imaginación de adelantarse a lo malo que puede llegar a pasar, por ejemplo, se puede programar una IA la cual aprenda todo lo que se encuentra en el internet. Si esto ocurre, tendría información a infinidad de cosas, y como bien sabemos en la red no solo existen cosas buenas sino que hay todo in iceberg que descubrir y navegar.
+
+### Puede observar este [mapa mental][mapa] que contiene información sintetizada sobre lo narrado.
 
 
 [0]: https://es.wikipedia.org/wiki/Alan_Turing
@@ -98,5 +101,13 @@ Muchas de las nuevas tecnologías han tenido efectos negativos no intencionados:
 [9]: https://es.wikipedia.org/wiki/Aprendizaje_por_refuerzo
 [10]: https://es.wikipedia.org/wiki/M%C3%A1quinas_de_vectores_de_soporte
 
+[11]: https://es.wikipedia.org/wiki/Funcionalismo
+[12]: https://es.wikipedia.org/wiki/Naturalismo_biol%C3%B3gico
+[13]: https://es.wikipedia.org/wiki/Dualismo
+[14]: https://es.wikipedia.org/wiki/Monismo
+
+[15]: https://www.amazon.es/Ethics-Computing-discussion-Information-Communication/dp/0412726203
+[16]: https://es.wikipedia.org/wiki/ECHELON
+[17]: https://es.wikipedia.org/wiki/Evoluci%C3%B3n_biol%C3%B3gica
 
 [mapa]: https://www.mindomo.com/mindmap/mapa-mental-f54eaa2040cb4e189a54e19fe84b8a11
