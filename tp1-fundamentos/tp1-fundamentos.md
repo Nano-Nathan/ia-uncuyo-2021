@@ -82,9 +82,9 @@ Muchas de las nuevas tecnologías han tenido efectos negativos no intencionados:
 
 ## *Conclusión*
 
-Luego de leer la cantidad de información brindada, se llega pensar que la inteligencia artificial tiene tantos beneficios como perjuicios. Ambos afectando a esta ciencia con la misma calidad, hay que saber pensar e interpretar todo lo que se puede hacer y el gran abanico de posibilidades que aún no se han descubierto pero que en un futuro, sin duda alguna, lo harán, ya sean las mismas inteligencias programadas como los desarrolladores a cargo de mantenerlas y/o interpretar los datos que se han devuelto. 
+Luego de leer la cantidad de información brindada, se llega a pensar que la inteligencia artificial tiene tantos beneficios como perjuicios. Ambos afectando a esta ciencia con la misma calidad, hay que saber pensar e interpretar todo lo que se puede hacer y el gran abanico de posibilidades que aún no se han descubierto pero que en un futuro, sin duda alguna, lo harán, ya sean las mismas inteligencias programadas como los desarrolladores a cargo de mantenerlas y/o interpretar los datos que se han devuelto. 
 
-Tambien hay que tener la imaginación de adelantarse a lo malo que puede llegar a pasar, por ejemplo, se puede programar una IA la cual aprenda todo lo que se encuentra en el internet. Si esto ocurre, tendría información a infinidad de cosas, y como bien sabemos en la red no solo existen cosas buenas sino que hay todo in iceberg que descubrir y navegar.
+También hay que tener la imaginación de adelantarse a lo malo que puede llegar a pasar, por ejemplo, se puede programar una IA la cual aprenda todo lo que se encuentra en el internet. Si esto ocurre, tendría información a una infinidad de cosas, y como bien sabemos en la red no solo existen cosas buenas sino que hay todo un iceberg que descubrir y navegar.
 
 ### Puede observar este [mapa mental][mapa] que contiene información sintetizada sobre lo narrado.
 
