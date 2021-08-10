@@ -12,7 +12,7 @@ Este argumento afirma que ***una máquina nunca puede hacer X***, siendo X las s
  
 Actualmente las computadoras hacen muchísimas cosas que anteriormente eran solo del dominio humano. Como por ejemplo, jugar al ajedrez, a las damas, al fifa y a muchos juegos más, inspeccionan piezas de las líneas de producción, comprueban la ortografía en los procesadores de texto, conducen coches, diagnostican enfermedades, y hacen otras cientos de tareas tan bien o mejor que los hombres. Han hecho pequeños pero significativos descubrimientos, en Astronomía, Matemáticas, Química, Mineralogía, Biología, Informática y otros campos que necesitan rendimiento a nivel de experto.
  
-Sin embargo, a pesar de todo lo que hoy en día se ha conseguido programar en las computadoras, estas no son capaces de utilizar la intuición ni el entendimiento humano. También es cierto que existen muchas tareas donde las computadoras no sobresalen, incluido el *[Test de Turing][2]*.
+Sin embargo, a pesar de todo lo que hoy en día se ha conseguido programar en las computadoras, estas no son capaces de utilizar la intuición ni el entendimiento humano. También es cierto que existen muchas tareas donde las computadoras no sobresalen, incluido el *Test de Turing*.
  
 ### La objeción matemática
  
@@ -40,9 +40,44 @@ En 1986 los hermanos *[Hubert][4]* y *[Stuart][5] Dreyfus* proponen un proceso d
 
 # IA fuerte: ¿Pueden las máquinas pensar de verdad?
 
-Muchos filósofos han afirmado que una máquina que pasa el Test de Turing no quiere decir que realmente esté pensando, sino que solamente es una simulación.
+Muchos filósofos han afirmado que una máquina que pasa el Test de Turing no quiere decir que realmente esté pensando, sino que solamente es una simulación. Esto es lo que Turing llama el *argumento de la consciencia*, la máquina tiene que ser consciente de sus propias acciones y estados mentales. Aunque la consciencia sea un tema importante, la máquina debería sentir emociones. Otros se centran en la intencionalidad, esto es, en la cuestión de si las creencias, deseos y otras representaciones supuestas de la máquina son de verdad algo que pertenece al mundo real.
+
+### [La teoría del funcionalismo][]
+> Un estado mental es cualquier condición causal inmediata entre la entrada y la salida. 
+
+Bajo esta teoría, dos sistemas con procesos causales isomórficos tendrían los mismos estados mentales. Por tanto, un programa informático podría tener los mismos estados mentales que una persona. La suposición es que existe algún nivel de abstracción por debajo del cual no importa una implementación específica, siempre que los procesos sean isomórficos hasta este nivel, tendrán lugar los mismos estados mentales.
+
+### [La teoría del naturalismo biológico][]
+> Los estados mentales son características emergentes de alto nivel originadas por procesos neurológicos de bajo nivel en las neuronas, y lo que importa son las propiedades de las neuronas.
+
+Así pues, los estados mentales no se pueden duplicar justo en la base de algún programa que tiene la misma estructura funcional con el mismo comportamiento de entrada y salida. Necesitaríamos que el programa se ejecutará en una arquitectura con la misma potencia causal que las neuronas. La teoría no dice por qué las neuronas tienen esta potencia causal, ni tampoco qué otras instanciaciones físicas podrían tenerla o no.
+
+### El problema de mente-cuerpo
+
+Este problema cuestiona cómo se relacionan los estados y los procesos mentales con los del cerebro.
+##### 1) **[Teoría dualista.][]**
+> *"El alma y el cuerpo son dos tipos de cosas diferentes." René Descartes*.
+##### 2) **[Teoría monista][] (materialista).**
+> *"No existen cosas tales como almas inmateriales sino sólo objetos materiales. Como consecuencia, los estados mentales son estados del cerebro."*
+- *Problemas*. 
+    1) Libertad de elección: La mayoría de los filósofos consideran que se necesita una reconstitución de nuestra noción sobre esto.
+    2) Conciencia: Cuando se piensa en algo, el cerebro sufre miríadas de cambios diminutos de un picosegundo al otro, pero estos no constituyen un cambio cualitativo en el estado del cerebro.
 
 # La ética y los riesgos de desarrollar IA
+
+Muchas de las nuevas tecnologías han tenido efectos negativos no intencionados: El motor de combustión trajo la polución ambiental y la pavimentación del paraíso, la fisión nuclear produjo el desastre de Chernobyl, la Isla de las Tres Millas y la amenaza de la destrucción mundial. Existe incluso un manual sobre la *[Ética de los Computadores][]*. Entonces, ¿Deberíamos desarrollar IA? La IA parece exponer problemas nuevos:
+- **Las personas podrían perder:**
+    - **Sus trabajos por la automatización:** Se podría decir que miles de trabajadores han sido desplazados por IA, pero si eliminamos estos trabajos no existirían, ya que la mano de obra humana añadiría un coste adicional. Hasta ahora, la automatización ha creado más y mejores trabajos de los que ha eliminado.
+
+    - **El sentido de ser únicos:** Las personas que trabajan en las industrias relacionadas con el conocimiento han descubierto que forman parte de un sistema computarizado integrado que funciona 24 horas al día. La IA incrementa el ritmo de la innovación tecnológica y contribuye así a lo recién mencionado, pero también mantiene la promesa de permitirnos ahorrar tiempo y que nuestros agentes automatizados hagan las cosas por sí solos.
+
+    - **Algunos derechos privados:** El sistema clasificado *[Echelon][]* del gobierno americano, está respaldado por computadores que utilizan traducción de lenguajes, reconocimiento de voz y palabras clave que buscan pasar por la criba automáticamente todo el tráfico de llamadas telefónicas, correos electrónicos, faxes y telex.
+
+- **Las personas podrían tener mucho o poco tiempo de ocio:** La investigación en IA hace posible la idea de que los hombres sean autómatas, una idea que produce pérdida de autonomía o incluso de humanidad. Aunque sea una materia de gran éxito, quizá sea amenazante para las suposiciones morales de la sociedad del siglo XXI al igual que la *[teoría de la evolución][]* lo fue para los del siglo XIX.
+
+- **La utilización de IA podría llevar a la pérdida de responsabilidad:** Si los sistemas expertos se hacen más fiables y precisos que los médicos que hacen diagnósticos, estos podrían tener obligaciones legales si no utilizan las recomendaciones generadas por dichos sistemas. Si las transacciones monetarias las realiza un agente inteligente en nombre de alguien, ¿Está obligado por las deudas incurridas? ¿Sería posible que un agente inteligente tenga activos o realice compras en su propio nombre? Por el momento ningún programa ha recibido un estado legal como individuo con fines financieros, pero no se sabe si a futuro esto será cierto.
+
+- **El éxito de la IA podría significar el fin de la raza humana:** Casi cualquier tecnología tiene el potencial de hacer daño si se encuentra en las manos equivocadas, pero con la IA y la robótica, tenemos el problema nuevo de que las manos equivocadas podrían pertenecer a dicha tecnología.
 
 
 ## *Conclusión*
@@ -65,4 +100,3 @@ Muchos filósofos han afirmado que una máquina que pasa el Test de Turing no qu
 
 
 [mapa]: https://www.mindomo.com/mindmap/mapa-mental-f54eaa2040cb4e189a54e19fe84b8a11
-
