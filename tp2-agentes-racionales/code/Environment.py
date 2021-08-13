@@ -1,6 +1,6 @@
 import random
 class Environment:
-    def __init__(self, sizeX = 2, sizeY = 2, init_posX = 0, init_posY = 0, dirt_rate = 0.1):
+    def __init__(self, sizeX = 2, sizeY = 2, dirt_rate = 0.1, init_posX = 0, init_posY = 0):
         #Guarda el desempeño del agente
         self.performance = 0;
         #Define e inicia el tablero
@@ -8,12 +8,12 @@ class Environment:
         for _ in range (sizeX):
             x.append([0] * sizeY);
         self.board = x;
+        self.sizeX = sizeX;
+        self.sizeY = sizeY;
         self._initBoard(int(dirt_rate * 10));
         #Guarda la posicion del agente
         self.posX = init_posX;
         self.posY = init_posY;
-        self.sizeX = sizeX;
-        self.sizeY = sizeY;
     
     def _initBoard(self, dirtRate):
         #Se genera un arreglo que guarda la probabilidad de que un cuadrado esté sucio
