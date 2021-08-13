@@ -5,7 +5,7 @@ class Environment:
         self.performance = 0;
         #Define e inicia el tablero
         x = [];
-        for i in range (sizeX):
+        for _ in range (sizeX):
             x.append([0] * sizeY);
         self.board = x;
         self._initBoard(int(dirt_rate * 10));
