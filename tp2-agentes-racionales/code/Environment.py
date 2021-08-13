@@ -12,13 +12,15 @@ class Environment:
         #Guarda la posicion del agente
         self.posX = init_posX;
         self.posY = init_posY;
+        self.sizeX = sizeX;
+        self.sizeY = sizeY;
     
     def _initBoard(self, dirtRate):
         #Se genera un arreglo que guarda la probabilidad de que un cuadrado esté sucio
         aRate = ([True] * dirtRate) + ([False] * (10 - dirtRate));
         #Ensucia algunos cuadros del tablero
-        for i in range (len(self.board[0])): #Filas
-            for j in range (len(self.board)): #Columnas
+        for i in range (self.sizeY): #Filas
+            for j in range (self.sizeX): #Columnas
                 if(aRate[random.randrange(10)] == True): #Si en la posicion es True, la casilla está sucia
                     self.board[j][i] = 1;
 
@@ -56,8 +58,8 @@ class Environment:
         #Arreglo que guardará la cantidad de filas que hay en el casillero
         aBoard = [""] * len(self.board[0]);
         #Se generan los strings de cada fila
-        for i in range (len(self.board[0])): #Filas
-            for j in range (len(self.board)): #Columnas
+        for i in range (self.sizeY): #Filas
+            for j in range (self.sizeX): #Columnas
                 if(self.board[j][i] == 1): #Casillero Sucio
                     aBoard[i] += " Dirty |";
                 else: # Casillero limpio
