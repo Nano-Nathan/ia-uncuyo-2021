@@ -61,13 +61,13 @@ class Environment:
         for i in range (self.sizeY): #Filas
             for j in range (self.sizeX): #Columnas
                 if(self.board[j][i] == 1): #Casillero Sucio
-                    aBoard[i] += " Dirty |";
+                    aBoard[i] += " dirty |";
                 else: # Casillero limpio
                     aBoard[i] += "       |";
             #Elimina el ultimo '|' de la columna
             aBoard[i] = aBoard[i][: len(aBoard[i]) - 1];
         # Se agrega el agente al casillero (reemplazando lo que haya ahi)
-        aBoard[self.posY] = aBoard[self.posY][:8*self.posX] + " Agent " + aBoard[self.posY][8*self.posX + 7:];
+        aBoard[self.posY] = aBoard[self.posY][:8*self.posX] + " AGENT " + aBoard[self.posY][8*self.posX + 7:];
         #Se muestra por pantalla el string
         for sRow in aBoard:
             print(sRow);
