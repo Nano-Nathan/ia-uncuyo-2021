@@ -1,19 +1,18 @@
 import random
 class Environment:
-    def __init__(self, sizeX = 2, sizeY = 2, dirt_rate = 0.1, init_posX = 0, init_posY = 0):
+    def __init__(self, sizeX = 2, sizeY = 2, dirt_rate = 0.1):
         #Guarda el desempeño del agente
         self.performance = 0;
         #Define e inicia el tablero
-        x = [];
+        t = [];
         for _ in range (sizeX):
-            x.append([0] * sizeY);
-        self.board = x;
+            t.append([0] * sizeY);
+        self.board = t;
+        #Guarda la posicion inicial del agente
         self.sizeX = sizeX;
         self.sizeY = sizeY;
+        #Ensucia el tablero
         self._initBoard(int(dirt_rate * 10));
-        #Guarda la posicion del agente
-        self.posX = init_posX;
-        self.posY = init_posY;
     
     def _initBoard(self, dirtRate):
         #Se genera un arreglo que guarda la probabilidad de que un cuadrado esté sucio
@@ -21,38 +20,27 @@ class Environment:
         #Ensucia algunos cuadros del tablero
         for i in range (self.sizeY): #Filas
             for j in range (self.sizeX): #Columnas
-                if(aRate[random.randrange(10)] == True): #Si en la posicion es True, la casilla está sucia
+                if(aRate[random.randrange(10)]): #Si en la posicion es True, la casilla está sucia
                     self.board[j][i] = 1;
 
-    def acceptAction(self,action):
-        bActionOK = False;
-        if(action == "clean"): #Accion de limpiar casilla (donde se encuentra el agente)
-            self.performance += 1;
-            self.board[self.posX][self.posY] = 0;
-            bActionOK = True;
-        elif (action == "up"): #Subir
-            if(self.posY > 0):
-                self.posY -= 1;
-                bActionOK = True;
-        elif (action == "down"): #Bajar
-            if(self.posY < len(self.board[0]) - 1):
-                self.posY += 1;
-                bActionOK = True;
-        elif (action == "left"): #Izquierda
-            if(self.posX > 0):
-                self.posX -= 1;
-                bActionOK = True;
-        elif (action == "right"): #Derecha
-            if(self.posX < len(self.board) - 1):
-                self.posX += 1;
-                bActionOK = True;
-        return bActionOK
-    
     def isDirty(self):
         return self.board[self.posX][self.posY] == 1;
 
+    def move(self, x, y):
+        self.posX = x;
+        self.posY = y;
+
+    def clean(self):
+        self.performance += 1;
+        self.board[self.posX][self.posY] = 0;
+
     def getPerformance(self):
-        return self.performance;
+        dirty = 0;
+        for i in range (self.sizeY): #Filas
+            for j in range (self.sizeX): #Columnas
+                if (self.board[j][i]):
+                    dirty += 1;
+        return dirty;
 
     def printEnvironment(self):
         #Arreglo que guardará la cantidad de filas que hay en el casillero
@@ -66,9 +54,9 @@ class Environment:
                     aBoard[i] += "       |";
             #Elimina el ultimo '|' de la columna
             aBoard[i] = aBoard[i][: len(aBoard[i]) - 1];
-        # Se agrega el agente al casillero (reemplazando lo que haya ahi)
+        #Agrega al tablero el agente
         aBoard[self.posY] = aBoard[self.posY][:8*self.posX] + " AGENT " + aBoard[self.posY][8*self.posX + 7:];
-        #Se muestra por pantalla el string
+        #Se muestra por pantalla el tablero
         for sRow in aBoard:
             print(sRow);
-        print("\n\n")
+        print("");
