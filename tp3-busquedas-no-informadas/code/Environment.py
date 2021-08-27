@@ -1,6 +1,6 @@
 import random
 class Environment:
-    def __init__(self, sizeX = 10, sizeY = 10, dirt_rate = 0.2):
+    def __init__(self, sizeX = 100, sizeY = 100, dirt_rate = 0.2):
         #Define e inicia el tablero
         t = [];
         for _ in range (sizeX):
@@ -40,8 +40,8 @@ class Environment:
     def setTarget (self, x, y):
         self.board[x][y] = -1;
 
-    def isVisited (self, x, y):
-        #Valida que no lo ha visitado y que no hay objeto o el agente
+    def isOcuped (self, x, y):
+        #Valida que no lo ha visitado, que no hay objeto o agente
         return self.board[x][y] == 1 or self.board[x][y] == 2 or (self.posX == x and self.posY == y);
 
     def printEnvironment(self):

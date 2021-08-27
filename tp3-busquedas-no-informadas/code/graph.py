@@ -41,9 +41,12 @@ class Graph:
         """
         self.E = {};
 
-    def addVertex (self, name, value, key = None):
-        self.V[name] = self.Node(name, value, key);
-        self.E[name] = {};
+    def addVertex (self, name, value, key = None, childrens = {}):
+        #Si no hay vertice con ese nombre, se crea
+        if(not self.getVertex(name)):
+            self.V[name] = self.Node(name, value, key);
+            self.E[name] = {};
+            self.addChildrens(name, childrens);
 
     def addConection(self, V1, V2, weight = 0):
         try:
@@ -67,19 +70,37 @@ class Graph:
                 #Si no existe el vértice en el grafo, lo crea
                 self.V[c]
             except (Exception):
-                self.addVertex(c, childrens[c]["value"], childrens[c]["key"]);
+                try:
+                    childrens[c]["key"];
+                    self.addVertex(c, childrens[c]["value"], childrens[c]["key"]);
+                except (Exception):
+                    try:
+                        childrens[c]["value"];
+                        self.addVertex(c, childrens[c]["value"]);
+                    except (Exception):
+                        self.addVertex(c, childrens[c]);
+                        
             #Agrega la conexion entre los vértices
             self.addConection(parent, c);
 
     def getVertex (self, name):
-        return self.V[name];
+        try:
+            return self.V[name];
+        except:
+            pass
+
+    def getAllVertex(self):
+        return self.V
 
     def getConections (self, V):
         return self.E[V];
 
+    def getCountVertex (self):
+        return len(self.V.keys());
+
     def show (self):
         for e in self.E:
-            print(self.V[e].getValue(), ": ",end="");
+            print(self.V[e].getName(), "|", self.V[e].getValue(), ": ",end="");
             print(
                 list(
                     map(

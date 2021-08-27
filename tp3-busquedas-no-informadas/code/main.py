@@ -1,25 +1,61 @@
-from Agente import Agent
-from Environment import Environment
+from IA import Agent, Environment
+import statistics
+#Método que muestra los resultados
+def __showResults(states, L, env):
+    print("Se han generado "+str(states)+" estados posibles.");
+    print("\nLos pasos a seguir son: ", end="");
+    L.show();
+    #Muestra en entorno
+    env.printEnvironment();
 
 #Arreglo que guardará los estados generados en cada caso.
 aBFS = [];
-print("\nEjecutando...\n");
+aDFS =[];
+aUS = [];
+print("\nEjecutando...", end="");
+
 #Ejecuta el argoritmo 30 veces en escenarios distintos
 for _ in range (30):
     #Genera el agente y el entorno
     E = Environment();
     A = Agent(E);
-    #Obtiene los resultados de BFS
-    _, states, Movements = A.BFS();
-    #print("Se han generado "+str(states)+" estados posibles.");
-    #print("\nLos pasos a seguir son: ", end="");
-    #Movements.show();
-    aBFS.append(states or 0);
-    #Muestra en entorno
-    #E.printEnvironment();
+    #
+    #####    BFS
+    _, statesBFS, MovementsBFS = A.BFS();
+    #__showResults(statesBFS, MovementsBFS, E);
+    aBFS.append(statesBFS or 0); #Agrega la cantidad de estados
+    
+    #####    DFS
+    #Genera el agente y el entorno
+    E = Environment();
+    A = Agent(E);
+    _, statesDFS, MovementsDFS = A.DFS();
+    #__showResults(statesDFS, MovementsDFS, E);
+    aDFS.append(statesDFS or 0);
+
+    #Genera el agente y el entorno
+    E = Environment();
+    A = Agent(E);
+    _, statesUS, MovementsUS = A.US();
+    #__showResults(statesUS, MovementsUS, E);
+    aUS.append(statesUS or 0);
+    
 
 #Muestra los resultados
-print("Estados generados en BFS: ");
+print("\n\nEstados generados en BFS: ", end="");
 print(aBFS,"\n");
+print("Media: ",statistics.mean(aBFS));
+print("Desviación estandar:", statistics.stdev(aBFS),"\n")
+print("Estados generados en DFS: ", end="");
+print(aDFS,"\n");
+print("Media: ", statistics.mean(aDFS));
+print("Desviación estandar", statistics.stdev(aDFS),"\n")
+
+print("Estados generados en US: ",end="");
+print(aUS,"\n");
+print("Media: ",statistics.mean(aUS));
+print("Desviación estandar", statistics.stdev(aUS),"\n")
+
+
 #Explica que significa cada cosa
 #print("\n-----------------------------\n  Obstáculo: [   ]\n  Casillas exploradas:  . \n-----------------------------");
