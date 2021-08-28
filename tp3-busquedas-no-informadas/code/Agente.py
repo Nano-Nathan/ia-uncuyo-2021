@@ -1,6 +1,6 @@
 import random
-from graph import Graph;
-from list import LinkedList;
+from structs.list import LinkedList;
+from structs.graph import Graph;
 class Agent:
     def __init__(self, env): #recibe como parámetro un objeto de la clase Environment
         #Define el tamaño del tablero
@@ -49,7 +49,7 @@ class Agent:
         return self.__BFS_DFS(True);
     def DFS (self):
         return self.__BFS_DFS();
-    def _getFrontier(self, G, queue, vertex, currV, isBFS):
+    def _getFrontier(self, G, queue, vertex, currV, isBFS, currW = 0):
         x = vertex.getValue()[0];
         y = vertex.getValue()[1];
         parent = vertex.getName();
@@ -64,7 +64,7 @@ class Agent:
             #Setea la casilla como visitada
             self.env.setVisited(currX, currY);
             #Agrega a la cola el vértice a visitar
-            queue.enqueue( currentV ) if isBFS else queue.push( currentV );
+            queue.priorityPush(currW+1, currentV) if isBFS == "US" else queue.enqueue( currentV ) if isBFS else queue.push( currentV );
             return currentV;
  
         #Se puede mover a la derecha y nunca ha ido a ese lugar
@@ -91,8 +91,9 @@ class Agent:
         while (currentV.getParent() != None):
             L.enqueue(currentV.getKey());
             currentV = currentV.getParent();
-        return True, states, L;
+        return states, L;
     def __BFS_DFS (self, isBFS = False):
+        weight = 0;
         #Crea el grafo
         G = Graph();
         #Crea la cola
@@ -104,34 +105,49 @@ class Agent:
         #Si la posición actual es el objetivo
         if(currentPosition == target):
             #print("La posicion inicial es el destino")
-            return False, None , None;
+            return None, None;
         
         #Agrega la posición inicial
         G.addVertex(0, currentPosition);
-        Q.enqueue(0) if isBFS else Q.push(0);
+        Q.priorityPush(0, 0) if isBFS == "US" else Q.enqueue(0) if isBFS else Q.push(0);
         #Contador que llevará la cuenta para que cada vértice tenga un nombre distinto
         currentVertex = 0;
         #Mientras no haya más nodos a revisar
         while (Q.lenght() > 0):
             #Actualiza el vertice actual
             if(isBFS):
-                name,_ = Q.dequeue();
+                if(isBFS == "US"):
+                    weight, name = Q.pop();
+                else:
+                    name,_ = Q.dequeue();
             else:
                 name,_ = Q.pop();
             vertex = G.getVertex( name );
             #Si la posición actual es el destino, genera el camino hasta la posicion inicial y lo devuelve
             if(vertex.getValue() == target):
                 self.env.setTarget(target[0], target[1]);
-                return self._generateRoad(G, vertex.getName());
+                if(isBFS == "US"):
+                    #Obtiene el próximo vertice a revisar
+                    nextWeight, nextName = Q.pop();
+                    if(weight > nextWeight):
+                        weight = nextWeight;
+                        vertex = G.getVertex(nextName);
+                        Q.priorityPush(weight, name);
+                    else:
+                        return self._generateRoad(G, vertex.getName());
+                else:
+                    return self._generateRoad(G, vertex.getName());
             #Agrega los nodos a revisar y devuelve el número del vertice actual
-            currentVertex = self._getFrontier(G, Q, vertex, currentVertex, isBFS);
+            currentVertex = self._getFrontier(G, Q, vertex, currentVertex, isBFS, weight);
         #print("No existe el camino")
-        return False, None, None
+        return None, None
 
     def US(self):
-        #Caminos
-        Roads = [];
-        States = [];
+        return self.__BFS_DFS("US");
+        """
+        isBFS = "US";
+        #Contador que llevará la cuenta para que cada vértice tenga un nombre distinto
+        currentVertex = 0;
         #Crea el grafo
         G = Graph();
         #Crea la cola
@@ -145,34 +161,36 @@ class Agent:
             return False, None, None;
 
         #Agrega la posición inicial
-        G.addVertex(0, currentPosition);
-        Q.push(0);
-        #Contador que llevará la cuenta para que cada vértice tenga un nombre distinto
-        currentVertex = 0;
+        G.addVertex(currentVertex, currentPosition);
+        Q.priorityPush(0, currentVertex);
         #Mientras no haya más nodos a revisar
         while (Q.lenght() > 0):
-            #Actualiza el vertice actual
-            name,_ = Q.pop();
+            if(isBFS == "US"):
+                #Actualiza el vertice actual
+                weight, name = Q.pop();
+
             vertex = G.getVertex( name );
-            #Si la posición actual es el destino, genera el camino hasta la posicion inicial y lo devuelve
+            #Si la posición actual es el destino
             if(vertex.getValue() == target):
-                self.env.setTarget(target[0], target[1]);
-                _, states, road = self._generateRoad(G, vertex.getName());
-                States.append(states);
-                Roads.append( road );
+                self .env.setTarget(target[0], target[1]);
+                if(isBFS == "US"):
+                    #Obtiene el próximo vertice a revisar
+                    nextWeight, nextName = Q.pop();
+                    if(weight > nextWeight):
+                        weight = nextWeight;
+                        vertex = G.getVertex(nextName);
+                        Q.priorityPush(weight, name);
+                    else:
+                        return self._generateRoad(G, vertex.getName());
+                else:
+                    pass
+                #Si el peso del próximo vertice a revisar es menor, se continua desde ese y se agrega el actual
+                if(weight > nextWeight):
+                    weight = nextWeight;
+                    vertex = G.getVertex(nextName);
+                    Q.priorityPush(weight, name);
+                else:
+                    return self._generateRoad(G, vertex.getName());
             #Agrega los nodos a revisar y devuelve el número del vertice actual
-            currentVertex = self._getFrontier(G, Q, vertex, currentVertex, False);
-        try:
-            count = 0;
-            maxLength = Roads[0].lenght();
-            index = 0;
-            i = 1;
-            while i < len(Roads):
-                currentLen = Roads[i].lenght();
-                if(currentLen < maxLength):
-                    index = i;
-                count += currentLen;
-                i += 1;
-            return True, States[index], Roads[index];
-        except (Exception):
-            return False, None, None;
+            currentVertex = self._getFrontier(G, Q, vertex, currentVertex, "US", weight);
+        """

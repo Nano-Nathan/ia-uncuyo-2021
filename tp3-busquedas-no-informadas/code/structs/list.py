@@ -16,12 +16,13 @@ class LinkedList:
     def priorityPush(self, value, key = None):
         newNode = self.Node(value, key);
         self.length += 1;
-        node = self.head
+        node = self.head;
         #Si tiene elementos
         if(node):
             #Si tiene que insertarse en la cabecera
             if (node.value >= value):
-                self.push(value);
+                self.length -= 1;
+                self.push(value, key);
             else:
                 while (node.next):
                     if(node.next.value >= value):
@@ -74,10 +75,12 @@ class LinkedList:
             self.length -= 1;
             return value, key;
     
-    def show (self):
+    def show (self, showKey = False):
         currentNode = self.head;
         sString = "["
         while (currentNode != None):
+            if(showKey):
+                sString += str(currentNode.key) + " : ";
             sString += str(currentNode.value) + ", ";
             currentNode = currentNode.next;
         sString = sString[: len(sString) - 2];

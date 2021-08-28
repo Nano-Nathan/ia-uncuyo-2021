@@ -22,7 +22,7 @@ for _ in range (30):
     A = Agent(E);
     #
     #####    BFS
-    statesBFS, MovementsBFS = A.BFS();
+    _, statesBFS, MovementsBFS = A.BFS();
     #__showResults(statesBFS, MovementsBFS, E);
     aBFS.append(statesBFS or 0); #Agrega la cantidad de estados
     
@@ -30,14 +30,14 @@ for _ in range (30):
     #Genera el agente y el entorno
     E = Environment();
     A = Agent(E);
-    statesDFS, MovementsDFS = A.DFS();
+    _, statesDFS, MovementsDFS = A.DFS();
     #__showResults(statesDFS, MovementsDFS, E);
     aDFS.append(statesDFS or 0);
 
     #Genera el agente y el entorno
     E = Environment();
     A = Agent(E);
-    statesUS, MovementsUS = A.US();
+    _, statesUS, MovementsUS = A.US();
     #__showResults(statesUS, MovementsUS, E);
     aUS.append(statesUS or 0);
     
@@ -46,17 +46,16 @@ for _ in range (30):
 print("\n\nEstados generados en BFS: ", end="");
 print(aBFS,"\n");
 print("Media: ",statistics.mean(aBFS));
-print("Desviación estandar:", statistics.stdev(aBFS),"\n");
-
+print("Desviación estandar:", statistics.stdev(aBFS),"\n")
 print("Estados generados en DFS: ", end="");
 print(aDFS,"\n");
 print("Media: ", statistics.mean(aDFS));
-print("Desviación estandar: ", statistics.stdev(aDFS),"\n");
+print("Desviación estandar", statistics.stdev(aDFS),"\n")
 
 print("Estados generados en US: ",end="");
 print(aUS,"\n");
 print("Media: ",statistics.mean(aUS));
-print("Desviación estandar: ", statistics.stdev(aUS),"\n");
+print("Desviación estandar", statistics.stdev(aUS),"\n")
 
 
 #Explica que significa cada cosa
