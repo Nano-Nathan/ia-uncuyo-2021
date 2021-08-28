@@ -49,6 +49,8 @@ class Agent:
         return self.__BFS_DFS(True);
     def DFS (self):
         return self.__BFS_DFS();
+    def US(self):
+        return self.__BFS_DFS("US");
     def _getFrontier(self, G, queue, vertex, currV, isBFS, currW = 0):
         x = vertex.getValue()[0];
         y = vertex.getValue()[1];
@@ -141,56 +143,3 @@ class Agent:
             currentVertex = self._getFrontier(G, Q, vertex, currentVertex, isBFS, weight);
         #print("No existe el camino")
         return None, None
-
-    def US(self):
-        return self.__BFS_DFS("US");
-        """
-        isBFS = "US";
-        #Contador que llevará la cuenta para que cada vértice tenga un nombre distinto
-        currentVertex = 0;
-        #Crea el grafo
-        G = Graph();
-        #Crea la cola
-        Q = LinkedList();
-        #Posicion actual
-        currentPosition = (self.currentX, self.currentY);
-        #Posicion objetivo
-        target = (self.env.targetX, self.env.targetY);
-        #Si la posición actual es el objetivo
-        if(currentPosition == target):
-            return False, None, None;
-
-        #Agrega la posición inicial
-        G.addVertex(currentVertex, currentPosition);
-        Q.priorityPush(0, currentVertex);
-        #Mientras no haya más nodos a revisar
-        while (Q.lenght() > 0):
-            if(isBFS == "US"):
-                #Actualiza el vertice actual
-                weight, name = Q.pop();
-
-            vertex = G.getVertex( name );
-            #Si la posición actual es el destino
-            if(vertex.getValue() == target):
-                self .env.setTarget(target[0], target[1]);
-                if(isBFS == "US"):
-                    #Obtiene el próximo vertice a revisar
-                    nextWeight, nextName = Q.pop();
-                    if(weight > nextWeight):
-                        weight = nextWeight;
-                        vertex = G.getVertex(nextName);
-                        Q.priorityPush(weight, name);
-                    else:
-                        return self._generateRoad(G, vertex.getName());
-                else:
-                    pass
-                #Si el peso del próximo vertice a revisar es menor, se continua desde ese y se agrega el actual
-                if(weight > nextWeight):
-                    weight = nextWeight;
-                    vertex = G.getVertex(nextName);
-                    Q.priorityPush(weight, name);
-                else:
-                    return self._generateRoad(G, vertex.getName());
-            #Agrega los nodos a revisar y devuelve el número del vertice actual
-            currentVertex = self._getFrontier(G, Q, vertex, currentVertex, "US", weight);
-        """
