@@ -6,6 +6,6 @@ Media:  187.47
 
 Desviación estandar: 98.71
 
-# [Gráfico de barras con los resultados del tp3 y tp4][0]
+# Gráfico de barras con los resultados del tp3 y tp4
 
-[0]: https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp4-busquedas-informadas/results.png
+<img src="https://raw.githubusercontent.com/Nano-Nathan/ia-uncuyo-2021/main/tp4-busquedas-informadas/results.png" />
