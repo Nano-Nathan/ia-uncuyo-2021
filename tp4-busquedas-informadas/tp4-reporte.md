@@ -8,4 +8,4 @@ Desviación estandar: 98.71
 
 # [Gráfico de barras con los resultados del tp3 y tp4][0]
 
-[0]: www.google.com
+[0]: https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp4-busquedas-informadas/results.png
