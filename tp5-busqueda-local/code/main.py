@@ -5,6 +5,7 @@ from Agent import Agent;
 
 N = [4,8,10,12,15];
 itera = 30;
+limit = 200;
 
 #Por cada tamaño del tablero
 for n in N:
@@ -13,16 +14,15 @@ for n in N:
     times =[];
     #Se ejecuta n veces
     for i in range (itera):
-        A = Agent(n, 100);
+        A = Agent(n, limit);
         initTime = time.time();
-        result, state, cost = A.hillClimbing();
+        result, state, cost = A.simulatedAnnealing();
         #Tiempo de ejecucion
         times.append(time.time() - initTime);
         #Estados recorridos
         states.append(state);
         #Costo del estado resultado
         costs.append(cost);
-
     #Muestra resultados
     print("\n-------- ","Tablero de ",n, "x", n," --------");
     #Veces que se llegó un estado optimo (porcentaje)
@@ -38,8 +38,9 @@ for n in N:
         ),
         "%"
     );
+    print("Promedio de amenazas entre reinas: ", round(statistics.mean(costs)));
     #Media y desviación estandar del tiempo de ejecucion
-    print("Tiempo de ejecución: \n\tPromedio:", 
+    print("\nTiempo de ejecución: \n\tPromedio:", 
         round(statistics.mean(times), 5), "seg.\n\tDesviación estándar:",
         round(statistics.stdev(times), 5), "seg.");
     #Estados por los que pasó

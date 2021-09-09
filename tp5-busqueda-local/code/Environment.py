@@ -4,8 +4,7 @@ import copy
 class Environment:
     def __init__(self, dimention):
         self.dim = dimention
-        self.state = self.newBoard();
-        self.cost = self.H(self.state);
+        self.state, self.cost = self.newBoard();
 
     def getState(self):
         return self.state;
@@ -17,7 +16,17 @@ class Environment:
         board = [0] * self.dim;
         for i in range (self.dim):
             board[i] = random.randrange(self.dim);
-        return board
+        return board, self.H(board);
+
+    def getNeighbor(self, state):
+        dim = len(state);
+        position = random.randrange(dim);
+        newValue = random.randrange(dim);
+        currentValue = state[position];
+        while (currentValue == newValue):
+            newValue = random.randrange(dim);
+        state[position] = newValue;
+        return state, self.H(state);
 
     #Calcula el costo de los demás movimientos a partir del estado actual y devuelve los de menor
     def getStatesWithLowerCost (self, currentState):
