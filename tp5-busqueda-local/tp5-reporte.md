@@ -146,4 +146,4 @@
 
 # [Archivo CSV][0]
 
-[0]: link
+[0]: https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp5-busqueda-local/results.csv
