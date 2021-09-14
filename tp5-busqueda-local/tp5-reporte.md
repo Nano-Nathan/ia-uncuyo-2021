@@ -147,3 +147,13 @@
 # [Archivo CSV][0]
 
 [0]: https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp5-busqueda-local/results.csv
+
+# Conclusión
+
+Hill Climbing no recorre más de 10 estados, pero en muy pocas veces llega a la solución óptima. Como es un algoritmo greedy, pierde la eficiencia de siempre darnos la mejor solución.
+
+Hablando de Simulated Annealing, como acepta estados que son peores que el actual. Puede evitar esa estancada en un máximo local que se provoca en Hill Climbing. Pero no evita devolver un estado que no sea el óptimo.
+
+A diferencia de estos algoritmos, el algoritmo genético (en mi caso) resolvió muchas más pruebas que los anteriores sin mucha diferencia de tiempo, excepto en los tableros de gran tamaño.
+
+Entonces, pensando en el problema de las n-reinas, si busco encontrar una muy buena solución en un tiempo bastante rápido (donde puede ser la correcta), elijo Simulated Annealing. Pero si deseo la mejor solución sin importar el tiempo de ejecución voy por el algoritmo genético (ajustando los parámetros para que seguramente me devuelva la solución).
