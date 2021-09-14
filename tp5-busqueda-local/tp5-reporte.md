@@ -1,182 +1,148 @@
-# Hill Climbing
---------  Tablero de  4 x 4  --------
-Veces que se llega a un estado óptimo:  36.67 %
+<table class="default">
+  <colgroup bgcolor="#555555">
+  <colgroup span="5" bgcolor="#444444">
+  <colgroup span="5" bgcolor="#555555">
+  <colgroup span="5" bgcolor="#444444">
 
-Tiempo de ejecución:
-        Promedio: 0.00029 seg.
-        Desviación estándar: 0.00123 seg.
-Estados recorridos:
-        Promedio: 1.27
-        Desviación estándar: 0.78
-
-
---------  Tablero de  8 x 8  --------
-Veces que se llega a un estado óptimo:  5.3 %
-
-Tiempo de ejecución:
-        Promedio: 0.00409 seg.
-        Desviación estándar: 0.00388 seg.
-Estados recorridos:
-        Promedio: 2.8
-        Desviación estándar: 0.96
-
---------  Tablero de  10 x 10  --------
-Veces que se llega a un estado óptimo:  0.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.00694 seg.
-        Desviación estándar: 0.00583 seg.
-Estados recorridos:
-        Promedio: 3.53
-        Desviación estándar: 0.78
-
---------  Tablero de  12 x 12  --------
-Veces que se llega a un estado óptimo:  0.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.01948 seg.
-        Desviación estándar: 0.00968 seg.
-Estados recorridos:
-        Promedio: 4.2
-        Desviación estándar: 0.89
-
---------  Tablero de  15 x 15  --------
-Veces que se llega a un estado óptimo:  0.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.0646 seg.
-        Desviación estándar: 0.02762 seg.
-Estados recorridos:
-        Promedio: 5.53
-        Desviación estándar: 1.07
-
-### Gráfico de la función h()
-
-<img src="" />
-
-### Gráfico de cajas
-
-<img src="" />
-
-# Simulated Annealing
-
---------  Tablero de  4 x 4  --------
-Veces que se llega a un estado óptimo:  80.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.00162 seg.
-        Desviación estándar: 0.00274 seg.
-Estados recorridos:
-        Promedio: 112.6
-        Desviación estándar: 72.48
-
---------  Tablero de  8 x 8  --------
-Veces que se llega a un estado óptimo:  40.7 %
-
-Tiempo de ejecución:
-        Promedio: 0.0062 seg.
-        Desviación estándar: 0.00358 seg.
-Estados recorridos:
-        Promedio: 150.2
-        Desviación estándar: 0.0
-
---------  Tablero de  10 x 10  --------
-Veces que se llega a un estado óptimo:  23.6 %
-
-Tiempo de ejecución:
-        Promedio: 0.00671 seg.
-        Desviación estándar: 0.0035 seg.
-Estados recorridos:
-        Promedio: 210.4
-        Desviación estándar: 0.0
-
---------  Tablero de  12 x 12  --------
-Veces que se llega a un estado óptimo:  0.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.0052 seg.
-        Desviación estándar: 0.00377 seg.
-Estados recorridos:
-        Promedio: 250
-        Desviación estándar: 0.0
-
---------  Tablero de  15 x 15  --------
-Veces que se llega a un estado óptimo:  0.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.00589 seg.
-        Desviación estándar: 0.00398 seg.
-Estados recorridos:
-        Promedio: 250
-        Desviación estándar: 0.0
-
-### Gráfico de la función h()
-
-<img src="" />
-
-### Gráfico de cajas
-
-<img src="" />
-
-# Algoritmo Genético
-
---------  Tablero de  4 x 4  --------
-Veces que se llega a un estado óptimo:  100.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.00211 seg.
-        Desviación estándar: 0.00331 seg.
-Estados recorridos:
-        Promedio: 0.35
-        Desviación estándar: 0.49
-
---------  Tablero de  8 x 8  --------
-Veces que se llega a un estado óptimo:  100.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.0592 seg.
-        Desviación estándar: 0.03562 seg.
-Estados recorridos:
-        Promedio: 10.05
-        Desviación estándar: 5.89
-
---------  Tablero de  10 x 10  --------
-Veces que se llega a un estado óptimo:  75.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.37997 seg.
-        Desviación estándar: 0.48303 seg.
-Estados recorridos:
-        Promedio: 65
-        Desviación estándar: 80.28
-
---------  Tablero de  12 x 12  --------
-Veces que se llega a un estado óptimo:  50.0 %
-
-Tiempo de ejecución:
-        Promedio: 0.98976 seg.
-        Desviación estándar: 0.7678 seg.
-Estados recorridos:
-        Promedio: 115.3
-        Desviación estándar: 86.97
-
---------  Tablero de  15 x 15  --------
-Veces que se llega a un estado óptimo:  40.0 %
-
-Tiempo de ejecución:
-        Promedio: 2.12894 seg.
-        Desviación estándar: 1.41947 seg.
-Estados recorridos:
-        Promedio: 135.75
-        Desviación estándar: 80.83
-
-### Gráfico de la función h()
-
-<img src="" />
-
-### Gráfico de cajas
-
-<img src="" />
+  <tr >
+    <td align="center">Algoritmo</td>
+    <td colspan="5" align="center" >Hill Climbing</td>
+    <td colspan="5" align="center" >Simulated Annealing</td>
+    <td colspan="5" align="center" >Genético</td>
+  </tr>
+  <tr >
+    <td align="center">Tamaño</td>
+    <td align="center">4x4</td>
+    <td align="center">8x8</td>
+    <td align="center">10x10</td>
+    <td align="center">12x12</td>
+    <td align="center">15x15</td>
+    <td align="center">4x4</td>
+    <td align="center">8x8</td>
+    <td align="center">10x10</td>
+    <td align="center">12x12</td>
+    <td align="center">15x15</td>
+    <td align="center">4x4</td>
+    <td align="center">8x8</td>
+    <td align="center">10x10</td>
+    <td align="center">12x12</td>
+    <td align="center">15x15</td>
+  </tr>
+  <tr>
+    <td >Veces que llega a un estado óptimo</td>
+    <td align="center">36.67%</td>
+    <td align="center">5.3%</td>
+    <td align="center">0%</td>
+    <td align="center">0%</td>
+    <td align="center">0%</td>
+    <td align="center">80%</td>
+    <td align="center">40.7%</td>
+    <td align="center">23.6%</td>
+    <td align="center">0%</td>
+    <td align="center">0%</td>
+    <td align="center">100%</td>
+    <td align="center">100%</td>
+    <td align="center">75%</td>
+    <td align="center">50%</td>
+    <td align="center">40%</td>
+  </tr>
+  <tr>
+    <td align="center">Tiempo promedio</td>
+    <td align="center">0.00029</td>
+    <td align="center">0.00409</td>
+    <td align="center">0.00694</td>
+    <td align="center">0.01948</td>
+    <td align="center">0.0646</td>
+    <td align="center">0.00162</td>
+    <td align="center">0.0062</td>
+    <td align="center">0.00671</td>
+    <td align="center">0.0052</td>
+    <td align="center">0.00589</td>
+    <td align="center">0.00211</td>
+    <td align="center">0.0592</td>
+    <td align="center">0.37997</td>
+    <td align="center">0.98976</td>
+    <td align="center">2.12894</td>
+  </tr>
+  <tr>
+    <td align="center">Desviación del tiempo</td>
+    <td align="center">0.00123</td>
+    <td align="center">0.00388</td>
+    <td align="center">0.00583</td>
+    <td align="center">0.00968</td>
+    <td align="center">0.02762</td>
+    <td align="center">0.00274</td>
+    <td align="center">0.00358</td>
+    <td align="center">0.0035</td>
+    <td align="center">0.00377</td>
+    <td align="center">0.00398</td>
+    <td align="center">0.00331</td>
+    <td align="center">0.03562</td>
+    <td align="center">0.48303</td>
+    <td align="center">0.7678</td>
+    <td align="center">1.41947</td>
+  </tr>
+  <tr>
+    <td align="center">Estados promedio</td>
+    <td align="center">1.27</td>
+    <td align="center">2.8</td>
+    <td align="center">3.53</td>
+    <td align="center">4.2</td>
+    <td align="center">5.53</td>
+    <td align="center">112.6</td>
+    <td align="center">150.2</td>
+    <td align="center">210.4</td>
+    <td align="center">250</td>
+    <td align="center">250</td>
+    <td align="center">0.35</td>
+    <td align="center">10.05</td>
+    <td align="center">65</td>
+    <td align="center">115.3</td>
+    <td align="center">135.75</td>
+  </tr>
+  <tr>
+    <td align="center">Desviación de los estados</td>
+    <td align="center">0.78</td>
+    <td align="center">0.96</td>
+    <td align="center">0.78</td>
+    <td align="center">0.89</td>
+    <td align="center">1.07</td>
+    <td align="center">72.48</td>
+    <td align="center">0.0</td>
+    <td align="center">0.0</td>
+    <td align="center">0.0</td>
+    <td align="center">0.0</td>
+    <td align="center">0.49</td>
+    <td align="center">5.89</td>
+    <td align="center">80.28</td>
+    <td align="center">86.97</td>
+    <td align="center">80.83</td>
+  </tr>
+  <tr>
+    <td align="center">Gráfico h()</td>
+    <td colspan="5" align="center">
+        <img src=""/>
+    </td>
+    <td colspan="5" align="center">
+        <img src="" />
+    </td>
+    <td colspan="5" align="center">
+        <img src="" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center">Gráfico de cajas</td>
+    <td colspan="5" align="center">
+        <img src="" />
+    </td>
+    <td colspan="5" align="center">
+        <img src="" />
+    </td>
+    <td colspan="5" align="center">
+        <img src="" />
+    </td>
+  </tr>
+</table>
 
 # [Archivo CSV][0]
 
