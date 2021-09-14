@@ -4,8 +4,8 @@ from Agent import Agent;
 
 
 N = [4,8,10,12,15];
-itera = 30;
-limit = 200;
+itera = 20;
+limit = 250;
 
 #Por cada tamaño del tablero
 for n in N:
@@ -16,7 +16,7 @@ for n in N:
     for i in range (itera):
         A = Agent(n, limit);
         initTime = time.time();
-        result, state, cost = A.simulatedAnnealing();
+        result, state, cost = A.genetic();
         #Tiempo de ejecucion
         times.append(time.time() - initTime);
         #Estados recorridos
@@ -25,7 +25,7 @@ for n in N:
         costs.append(cost);
     #Muestra resultados
     print("\n-------- ","Tablero de ",n, "x", n," --------");
-    #Veces que se llegó un estado optimo (porcentaje)
+    """#Veces que se llegó un estado optimo (porcentaje)
     print(
         "Veces que se llega a un estado óptimo: ", 
         round(
@@ -38,7 +38,6 @@ for n in N:
         ),
         "%"
     );
-    print("Promedio de amenazas entre reinas: ", round(statistics.mean(costs)));
     #Media y desviación estandar del tiempo de ejecucion
     print("\nTiempo de ejecución: \n\tPromedio:", 
         round(statistics.mean(times), 5), "seg.\n\tDesviación estándar:",
@@ -46,4 +45,10 @@ for n in N:
     #Estados por los que pasó
     print("Estados recorridos: \n\tPromedio:", 
         round(statistics.mean(states), 2), "\n\tDesviación estándar:",
-        round(statistics.stdev(states), 2));
+        round(statistics.stdev(states), 2));"""
+    print("Estados:");
+    for e in states:
+        print (e);
+    print("tiempos");
+    for t in times:
+        print(round(t, 5));
