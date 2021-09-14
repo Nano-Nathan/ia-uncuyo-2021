@@ -121,25 +121,25 @@
   <tr>
     <td align="center">Gráfico h()</td>
     <td colspan="5" align="center">
-        <img src=""/>
+        <img src="https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp5-busqueda-local/image/HC.png"/>
     </td>
     <td colspan="5" align="center">
-        <img src="" />
+        <img src="https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp5-busqueda-local/image/SA.png" />
     </td>
     <td colspan="5" align="center">
-        <img src="" />
+        <img src="https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp5-busqueda-local/image/G.png" />
     </td>
   </tr>
   <tr>
     <td align="center">Gráfico de cajas</td>
     <td colspan="5" align="center">
-        <img src="" />
+        <img src="https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp5-busqueda-local/image/HCBox.png" />
     </td>
     <td colspan="5" align="center">
-        <img src="" />
+        <img src="https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp5-busqueda-local/image/SABox.png" />
     </td>
     <td colspan="5" align="center">
-        <img src="" />
+        <img src="https://github.com/Nano-Nathan/ia-uncuyo-2021/blob/main/tp5-busqueda-local/image/GBox.png" />
     </td>
   </tr>
 </table>
