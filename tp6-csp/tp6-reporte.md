@@ -36,7 +36,15 @@
 
 3. Cuál es la complejidad en el peor caso cuando se ejecuta AC-3 en un árbol estructurado CSP.
 
-4. AC-3 coloca de nuevo en la cola todo arco $(x_k, x_i)$ cuando cualquier valor es removido del dominio de $x_i$ incluso si cada valor de $x_k$ es consistente con los valores restantes de $x_i$. Si por cada arco $(x_k,x_i)$ se lleva cuenta del número de valores que quedan de $x_i$ que sean consistentes con $x_k$. Explicar como actualizar ese número de manera eficiente y demostrar que la arco consistencia puede lograrse en un tiempo total O($n^2d^2$)
+    La complejidad en el peor caso es de $O(n^2d^3)$ siendo $n$ la cantidad de variables y $d$ la cantidad de elementos pertenecientes al dominio de cada variable.
+
+<br/>
+
+4. AC-3 coloca de nuevo en la cola todo arco $(x_k, x_i)$ cuando cualquier valor es removido del dominio de $x_i$ incluso si cada valor de $x_k$ es consistente con los valores restantes de $x_i$. Si por cada arco $(x_k,x_i)$ se lleva cuenta del número de valores que quedan de $x_i$ que sean consistentes con $x_k$. Explicar como actualizar ese número de manera eficiente y demostrar que la arco consistencia puede lograrse en un tiempo total O($n^2d^2$).
+
+
+
+<br/>
 
 5. Demostrar la correctitud del algoritmo CSP para  árboles estructurados. Para ello, demostrar: 
     1. Que para un CSP cuyo grafo de restricciones es un árbol, 2-consistencia (consistencia de arco) implica n-consistencia (siendo n número total de variables)
