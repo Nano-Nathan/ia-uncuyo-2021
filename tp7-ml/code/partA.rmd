@@ -1,0 +1,288 @@
+
+
+```{r}
+#usar ml
+library(caret)
+
+#para poder usar %>%
+library(magrittr) 
+
+#para manejar datasets
+library(dplyr)
+library(readr)
+
+#Multicore
+library(parallel)
+cl <- makeCluster(numCores-1)  
+parallel::makeCluster(spec = cl)
+
+#Plot
+#para gráficos hackers
+library(ggdark)
+library(ggplot2)
+
+library(tidyverse)
+
+library(rpart)
+
+```
+
+# EJERCICIO 1
+
+```{r}
+#obtenemos el dataset
+trees <- read_csv(file = "../arbolado-publico-mendoza-2021/arbolado-mza-dataset.csv")
+
+#generamos un vector con los indices del conjunto trees
+x <- seq(1:nrow(trees))
+#Calculamos en 80%
+size <- (nrow(trees) * 80) / 100 
+
+#Obtenemos los indices del 80%
+idx <- sample(x,size)
+
+#Seleccionamos el conjunto de prueba
+validation <- trees[-idx,]
+write_csv(x = validation, file = "../data/arbolado-publico-mendoza-2021-validation.csv")
+
+#Seleccionamos el conjunto de entrenamiento
+train <- trees[idx,]
+write_csv(x = train, file = "../data/arbolado-publico-mendoza-2021-train.csv")
+
+```
+# EJERCICIO 2
+
+## A
+
+```{r}
+train %>% 
+  group_by(inclinacion_peligrosa) %>% 
+  summarise(total=n()) %>%
+  ggplot()+
+  geom_col(aes(x=inclinacion_peligrosa, y=total), fill='green', color='black')+
+  ggdark::dark_theme_classic()
+```
+## B
+
+```{r}
+train %>%
+  filter(inclinacion_peligrosa == 1) %>%
+  group_by(nombre_seccion) %>%
+  summarise(total=n()) %>%
+  ggplot()+
+  geom_col(aes(x=nombre_seccion, y=total), fill='green', color='black')+
+  ggdark::dark_theme_classic()+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1), legend.position = "none")
+
+```
+## C
+```{r}
+train %>%
+  filter(inclinacion_peligrosa == 1) %>%
+  group_by(especie) %>%
+  summarise(total=n()) %>%
+  ggplot()+
+  geom_col(aes(x=especie, y=total), fill='green', color='black')+
+  ggdark::dark_theme_classic()+
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1), legend.position = "none")
+```
+
+# EJERCICIO 3
+## B
+
+```{r}
+train %>%
+  ggplot()+
+  geom_histogram(aes(x=circ_tronco_cm), binwidth = 10,bins = 20, fill = "green", color="black")+
+  dark_theme_classic()
+```
+
+## C
+
+```{r}
+train %>%
+  filter(inclinacion_peligrosa == 1) %>%
+  ggplot()+
+  geom_histogram(aes(x=circ_tronco_cm), binwidth = 10,bins = 20, fill = "green", color="black")+
+  dark_theme_classic()
+```
+
+## D
+
+```{r}
+#Obtiene los cuartiles y la mediana para saber a partir de que valor dividir
+quantile(train$circ_tronco_cm)
+
+#Agrega la variable
+divideTrain <- train %>%
+  mutate(
+    circ_tronco_cm_cat = 
+      ifelse(
+        circ_tronco_cm <= 60,'Bajo',
+        ifelse(
+          60 < circ_tronco_cm & circ_tronco_cm <= 110,'Medio',
+          ifelse(
+            110 < circ_tronco_cm & circ_tronco_cm <= 158, 'Alto',
+            'Muy alto'
+          )
+        )
+      )
+  )
+write_csv(x = divideTrain, file = "../data/arbolado-publico-mendoza-2021-circ_tronco_cm-train.csv")
+
+```
+# EJERCICIO 4
+
+```{r}
+
+# INCISO A
+
+createRandomColumn <- function(dataFrame){
+  dataFrame$prediction_prob <- runif(nrow(dataFrame), 0 , 1)
+  return(dataFrame)
+}
+
+# INCISO B
+
+random_classifier <- function (dataFrame){
+  dataFrame <- dataFrame %>% mutate(
+    prediction_class = ifelse(
+      prediction_prob > 0.5, 1, 0
+    )
+  ) %>%
+  select(-prediction_prob)
+  return(dataFrame)
+}
+
+# INCISO C
+
+validation <- read_csv(file = "../data/arbolado-publico-mendoza-2021-validation.csv") %>%
+  createRandomColumn() %>%
+  random_classifier()
+
+# INCISO D
+
+confusionMatrix(
+  as.factor(validation$inclinacion_peligrosa), 
+  as.factor(validation$prediction_class)
+  )
+
+```
+
+# EJERCICIO 5
+
+```{r}
+
+# INCISO A
+
+biggerclass_classifier <- function (dataFrame) {
+  #Contamos lacantidad de arboles con inclinacion peligrosa
+  a <- dataFrame %>% 
+    group_by(inclinacion_peligrosa) %>% 
+    summarise(total=n())
+  
+  #ordenamos por cantidad
+  order( a[,"total"], decreasing = TRUE )
+  
+  #Seleccionamos el valor con mayor cantidad
+  b <- a$inclinacion_peligrosa[1]
+  
+  #actualizamos el dataframe
+  dataFrame <- dataFrame %>% mutate(prediction_class = b)
+  return(dataFrame)
+}
+
+# INCISO B.C
+
+validation <- read_csv(file = "../data/arbolado-publico-mendoza-2021-validation.csv") %>%
+  biggerclass_classifier()
+
+# INCISO B.D
+
+
+dataMatrix <- function(validation){
+  truePositive <- validation %>% filter(inclinacion_peligrosa == 1 & prediction_class == 1)
+  trueNegative <- validation %>% filter(inclinacion_peligrosa == 0 & prediction_class == 0)
+  falsePositive <- validation %>% filter(inclinacion_peligrosa == 0 & prediction_class == 1)
+  falseNegative <- validation %>% filter(inclinacion_peligrosa == 1 & prediction_class == 0)
+  rows <- nrow(validation)
+  tpCount <- nrow(truePositive)
+  tnCount <- nrow(trueNegative)
+  fpCount <- nrow(falsePositive)
+  fnCount <- nrow(falseNegative)
+  titles <- c('True positive', 'True negative', 'False positive', 'False negative', 'Specifity', 'Sensitivity', 'Accuracy', 'Precision')
+  values <- c(tpCount, tnCount, fpCount, fnCount,
+    (tpCount/(tpCount+fnCount)),
+    (tnCount/tnCount+fpCount), 
+    (tpCount + tnCount) / rows,
+    (tpCount / (tpCount + fpCount))
+    )
+  return(data.frame(titles, values))
+}
+
+validation %>% dataMatrix()
+
+
+```
+```{r}
+
+# INCISO A
+
+create_folds <- function (dataFrame, k) {
+  foldsLenght <- dataFrame %>% nrow() / k %>% ceiling()
+  
+  value <- split(dataFrame, sample(rep(1:k,foldsLenght)))
+  
+  return(value)
+}
+
+# INCISO B
+
+cross_validation <- function (dataFrame, nFolds){
+  folds <- create_folds(dataFrame, nFolds)
+  
+  calcule <- function (folds, n, toReturn) {
+    if(n > 0){
+      train_data <- folds[-n]
+      test_data <- folds[n]
+      
+      #train_formula<-formula(inclinacion_peligrosa ~ .)
+      
+		  #tree_model<-rpart(train_formula,data=train_data)
+		  
+      if(is.null(toReturn)){
+        toReturn$itera <- n
+        
+        toReturn <- data.frame(toReturn)
+        
+      } else {
+        # Data frame to list
+        df <- as.list(toReturn)
+        
+        # Add the new row
+        df$id <- rbind(df$itera, n)
+        
+        # Convert to data.frame
+        toReturn <- data.frame(df)
+      }
+        
+      calcule (folds, n-1, toReturn)
+    } else {
+      return(toReturn)
+    }
+  }
+  
+  return(calcule(folds, 5, NULL))
+}
+
+cross_validation(trees, 5)
+
+a<- NULL
+
+a$hola <- "cuatro"
+
+data.frame(a)
+
+as.list()
+
+```
