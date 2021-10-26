@@ -23,7 +23,12 @@ library(ggplot2)
 
 library(tidyverse)
 
+#Algoritmos de ml
 library(rpart)
+library(rpart.plot)
+
+#Para combinar datasets
+library(pandas)
 
 ```
 
@@ -199,7 +204,14 @@ validation <- read_csv(file = "../data/arbolado-publico-mendoza-2021-validation.
 
 # INCISO B.D
 
+validation %>% dataMatrix()
 
+
+```
+
+# EJERCICIO 6
+
+```{r}
 dataMatrix <- function(validation){
   truePositive <- validation %>% filter(inclinacion_peligrosa == 1 & prediction_class == 1)
   trueNegative <- validation %>% filter(inclinacion_peligrosa == 0 & prediction_class == 0)
@@ -219,11 +231,11 @@ dataMatrix <- function(validation){
     )
   return(data.frame(titles, values))
 }
-
-validation %>% dataMatrix()
-
-
 ```
+
+
+# EJERCICIO 7
+
 ```{r}
 
 # INCISO A
@@ -239,50 +251,66 @@ create_folds <- function (dataFrame, k) {
 # INCISO B
 
 cross_validation <- function (dataFrame, nFolds){
+  #Dividimos el conjunto de entrenamiento
   folds <- create_folds(dataFrame, nFolds)
   
-  calcule <- function (folds, n, toReturn) {
-    if(n > 0){
-      train_data <- folds[-n]
-      test_data <- folds[n]
-      
-      #train_formula<-formula(inclinacion_peligrosa ~ .)
-      
-		  #tree_model<-rpart(train_formula,data=train_data)
-		  
-      if(is.null(toReturn)){
-        toReturn$itera <- n
-        
-        toReturn <- data.frame(toReturn)
-        
-      } else {
-        # Data frame to list
-        df <- as.list(toReturn)
-        
-        # Add the new row
-        df$id <- rbind(df$itera, n)
-        
-        # Convert to data.frame
-        toReturn <- data.frame(df)
-      }
-        
-      calcule (folds, n-1, toReturn)
-    } else {
-      return(toReturn)
-    }
-  }
+  #Decidiremos si un arbol tiene inclincacion peligrosa a partir de las variables seleccionadas
+  formulaTrain <- formula(inclinacion_peligrosa ~ altura+diametro_tronco+especie)
   
-  return(calcule(folds, 5, NULL))
+
+  #Valores a retornar
+  itera <- NULL
+  specifity <- NULL
+  sensivity <- NULL
+  accuracy <- NULL
+  precision_ <- NULL
+  media <- NULL
+  desviacion_estandar <- NULL
+  
+  
+  #Por cada fold a analizar
+  for(i in 1:nFolds){
+    #Selecciona el conjunto de entrenamiento y test
+    dataTrain <- folds[-n] %>% combine()
+    dataTest <- folds[n] %>% toDataFrame()
+    #Entrena el modelo
+    tree_model<-rpart(formula = formulaTrain, data=dataTrain)
+    # obtenemos la predicción
+    prediction_class<-predict(tree_model,dataTest,type='class')
+    inclinacion_peligrosa <- dataTest$inclinacion_peligrosa
+    
+    #Calcula los resultados a devolver
+
+    compare <- data.frame(inclinacion_peligrosa, prediction_class)
+    results <- dataMatrix(compare)
+    
+    itera[i] = i
+    specifity[i] = results$value[5]
+    sensivity[i] = results$value[6]
+    accuracy[i] = results$value[7]
+    precision_[i] = results$value[8]
+    media[i] = "null"
+    desviacion_estandar[i] = "null"
+  }
+  return(data.frame(itera, specifity, sensivity, accuracy, precision_, media, desviacion_estandar))
 }
 
-cross_validation(trees, 5)
 
-a<- NULL
+#Combina una lista con dataframes
+combine <- function (dataList) {
+  dim <- length(dataList)
+  initData <- toDataFrame(dataList[1])
+  for (v in dataList[2:dim]){
+    initData <- rbind(initData, v)
+  }
+  return(initData)
+}
+toDataFrame <- function (dataFrame){
+  for(v in dataFrame){return(v)}
+}
 
-a$hola <- "cuatro"
+cross_validation(trees, 6)
 
-data.frame(a)
 
-as.list()
 
 ```
