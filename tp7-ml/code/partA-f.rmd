@@ -11,10 +11,6 @@ library(magrittr)
 library(dplyr)
 library(readr)
 
-#Multicore
-library(parallel)
-cl <- makeCluster(numCores-1)  
-parallel::makeCluster(spec = cl)
 
 #Plot
 #para gráficos hackers
@@ -25,6 +21,10 @@ library(tidyverse)
 
 #Algoritmos de ml
 library(rpart)
+library(rpart.plot)
+
+#Para combinar datasets
+
 
 ```
 
@@ -267,12 +267,12 @@ cross_validation <- function (dataFrame, nFolds){
   #Por cada fold a analizar
   for(i in 1:nFolds){
     #Selecciona el conjunto de entrenamiento y test
-    dataTrain <- folds[-n] %>% combine()
-    dataTest <- folds[n] %>% toDataFrame()
+    dataTrain <- folds[-i] %>% combine()
+    dataTest <- folds[i] %>% toDataFrame()
     #Entrena el modelo
     tree_model<-rpart(formula = formulaTrain, data=dataTrain)
     # obtenemos la predicción
-    prediction_class<-predict(tree_model,dataTest,type='class')
+    prediction_class<-predict(tree_model,dataTest)
     inclinacion_peligrosa <- dataTest$inclinacion_peligrosa
     
     #Calcula los resultados a devolver

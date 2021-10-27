@@ -1,0 +1,82 @@
+```{r}
+  #usar ml
+  library(caret)
+  
+  #para poder usar %>%
+  library(magrittr) 
+  
+  #para manejar datasets
+  library(dplyr)
+  library(readr)
+  
+  #Multicore
+  library(parallel)
+  cl <- makeCluster(numCores-1)  
+  parallel::makeCluster(spec = cl)
+  
+  library(randomForest)
+
+```
+
+# EJERCICIO 1
+
+```{r}
+  #Load data set
+  trees <- read_csv(file = "../arbolado-publico-mendoza-2021/arbolado-mza-dataset.csv") %>%
+    select(-c(ultima_modificacion, long, lat, seccion))
+  
+  #read quantile
+  quantile(trees$area_seccion)
+  #divide area for quantile
+  trees <- trees %>%
+    mutate(
+      area_seccion_parse = 
+        ifelse(
+          area_seccion <= 1655358,'Chica',
+          ifelse(
+            1655358  < area_seccion & area_seccion <= 2203365 ,'Mediana',
+            ifelse(
+              2203365  < area_seccion & area_seccion <= 2423809 , 'Grande',
+              'Muy grande'
+            )
+          )
+        )
+    ) %>%
+    select(-area_seccion)
+  
+  #ninety percent of trees without dangerous tilt
+  withoutDangerousTilt <- dataTrain %>% filter(inclinacion_peligrosa == 0) %>% sample_frac(.9)
+  #rest of trees without dangerous tilt
+  restWithoutDangerousTilt <- dataTrain %>% filter(inclinacion_peligrosa == 0) %>% setdiff(withoutDangerousTilt)
+  
+  withDangerousTilt <- dataTrain %>% filter(inclinacion_peligrosa == 1) %>% sample_frac(.9)
+  restWithDangerousTilt <- dataTrain %>% filter(inclinacion_peligrosa == 1) %>% setdiff(withDangerousTilt)
+  
+  
+  dataTrain <- rbind(withoutDangerousTilt, withDangerousTilt)
+  dataTest <- rbind(restWithoutDangerousTilt, restWithDangerousTilt)
+
+  # Train model
+  ctrl_fast <- trainControl(method="cv", 
+    number=5, 
+    verboseIter=T,
+    classProbs=F,
+    allowParallel = TRUE)
+  
+  train_formula<- formula(inclinacion_peligrosa ~ especie, altura, circ_tronco_cm, diametro_tronco, nombre_seccion, area_seccion_parse)
+  
+  modelGenerated <- train(train_formula,
+    data = dataTrain,
+    method = "rpart",
+    trControl = ctrl_fast)
+  
+  inclinacion_peligrosa <- predict(modelGenerated, dataTest)
+  
+  dataTrain %>% group_by(inclinacion_peligrosa) %>% summarise(total = n())
+  
+  # Formatting
+  inclinacion_peligrosa <- as.numeric(as.character(inclinacion_peligrosa))
+  results <- data.frame(dataTest$id,inclinacion_peligrosa)
+
+  write_csv(results,"../data/results.csv")
+```
