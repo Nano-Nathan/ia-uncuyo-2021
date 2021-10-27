@@ -165,7 +165,8 @@ validation <- read_csv(file = "../data/arbolado-publico-mendoza-2021-validation.
 
 confusionMatrix(
   as.factor(validation$inclinacion_peligrosa), 
-  as.factor(validation$prediction_class)
+  as.factor(validation$prediction_class),
+  mode = "everything"
   )
 
 ```
@@ -189,20 +190,39 @@ biggerclass_classifier <- function (dataFrame) {
   b <- a$inclinacion_peligrosa[1]
   
   #actualizamos el dataframe
-  dataFrame <- dataFrame %>% mutate(prediction_class = b)
+  dataFrame <- mutate(dataFrame, prediction_class = as.integer(b))
   return(dataFrame)
 }
 
 # INCISO B.C
 
-validation <- read_csv(file = "../data/arbolado-publico-mendoza-2021-validation.csv") %>%
-  biggerclass_classifier()
+dataFrame <- read_csv(file = "../data/arbolado-publico-mendoza-2021-validation.csv")
+
+dataFrame$inclinacion_peligrosa <- as.integer(dataFrame$inclinacion_peligrosa)
+
+validation <- biggerclass_classifier(dataFrame)
+
+validation %>% group_by(inclinacion_peligrosa) %>% summarise(total = n())
+validation %>% group_by(prediction_class) %>% summarise(total = n())
+
+
 
 # INCISO B.D
 
+
+
+inclinacion_peligrosa_h<-factor(validation$inclinacion_peligrosa)
+
+predictions<-factor(validation$prediction_class, levels = levels(inclinacion_peligrosa_h))
+
+confusionMatrix(
+  inclinacion_peligrosa_h,
+  predictions,
+  mode = "everything"
+  )
+
+as.factor(validation$prediction_class)
 validation %>% dataMatrix()
-
-
 ```
 
 # EJERCICIO 6
