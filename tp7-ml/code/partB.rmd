@@ -1,3 +1,5 @@
+# EJERCICIO 1
+
 ```{r}
   #usar ml
   library(caret)
@@ -17,66 +19,56 @@
   library(randomForest)
 
 ```
-
-# EJERCICIO 1
-
 ```{r}
-  #Load data set
-  trees <- read_csv(file = "../arbolado-publico-mendoza-2021/arbolado-mza-dataset.csv") %>%
-    select(-c(ultima_modificacion, long, lat, seccion))
+  dataTrain <- read_csv(file = "../arbolado-publico-mendoza-2021/arbolado-mza-dataset.csv") %>% 
+    select(-c(ultima_modificacion, long, lat, area_seccion, nombre_seccion, circ_tronco_cm, seccion))
   
-  #read quantile
-  quantile(trees$area_seccion)
-  #divide area for quantile
-  trees <- trees %>%
-    mutate(
-      area_seccion_parse = 
-        ifelse(
-          area_seccion <= 1655358,'Chica',
-          ifelse(
-            1655358  < area_seccion & area_seccion <= 2203365 ,'Mediana',
-            ifelse(
-              2203365  < area_seccion & area_seccion <= 2423809 , 'Grande',
-              'Muy grande'
-            )
-          )
-        )
-    ) %>%
-    select(-area_seccion)
+  dataTest <- read_csv(file = "../arbolado-publico-mendoza-2021/arbolado-mza-dataset-test.csv") %>%
+    select(-c(ultima_modificacion, long, lat, area_seccion, nombre_seccion, circ_tronco_cm, seccion))
   
-  #ninety percent of trees without dangerous tilt
-  withoutDangerousTilt <- dataTrain %>% filter(inclinacion_peligrosa == 0) %>% sample_frac(.9)
-  #rest of trees without dangerous tilt
-  restWithoutDangerousTilt <- dataTrain %>% filter(inclinacion_peligrosa == 0) %>% setdiff(withoutDangerousTilt)
-  
-  withDangerousTilt <- dataTrain %>% filter(inclinacion_peligrosa == 1) %>% sample_frac(.9)
-  restWithDangerousTilt <- dataTrain %>% filter(inclinacion_peligrosa == 1) %>% setdiff(withDangerousTilt)
+  #data_validation_index<-sample(nrow(dataTrain),nrow(dataTrain)*0.1)
+  #
+  #data_validation<-dataTrain[data_validation_index,]
+  #
+  #dataTrain<-dataTrain[-data_validation_index,]
   
   
-  dataTrain <- rbind(withoutDangerousTilt, withDangerousTilt)
-  dataTest <- rbind(restWithoutDangerousTilt, restWithDangerousTilt)
-
-  # Train model
-  ctrl_fast <- trainControl(method="cv", 
-    number=5, 
-    verboseIter=T,
-    classProbs=F,
-    allowParallel = TRUE)
+  with <- dataTrain %>% filter(inclinacion_peligrosa == 1)
   
-  train_formula<- formula(inclinacion_peligrosa ~ especie, altura, circ_tronco_cm, diametro_tronco, nombre_seccion, area_seccion_parse)
+  with_extra_idx <- sample(1:nrow(with),replace = F, size = 1000)
+  with_extra <- with[with_extra_idx,]
   
-  modelGenerated <- train(train_formula,
-    data = dataTrain,
-    method = "rpart",
-    trControl = ctrl_fast)
+  with <- rbind(with, with_extra)
   
-  inclinacion_peligrosa <- predict(modelGenerated, dataTest)
+  
+  
+  without <- dataTrain %>% filter(inclinacion_peligrosa == 0)
+  
+  without_idx <- sample(1:nrow(without),replace = F, size = 4600)
+  without <- without[without_idx,]
+  
+  
+  dataTrain <- rbind(with, without)
+  
   
   dataTrain %>% group_by(inclinacion_peligrosa) %>% summarise(total = n())
   
-  # Formatting
-  inclinacion_peligrosa <- as.numeric(as.character(inclinacion_peligrosa))
-  results <- data.frame(dataTest$id,inclinacion_peligrosa)
+  # Train model
+  train_formula<- formula(inclinacion_peligrosa ~ especie + altura + diametro_tronco)
+  rf <- randomForest(train_formula, data=dataTrain, importance=TRUE, ntree=600, mtry=2)
 
-  write_csv(results,"../data/results.csv")
+  #test the model
+  preds_tree <- predict(rf, dataTest)
+  
+  #generate result
+  result <- data.frame(id = dataTest$id, preds_tree)
+  result <- result %>% mutate(inclinacion_peligrosa = ifelse(preds_tree >= 0.5, 1, 0)) %>% select(-preds_tree)
+  
+  result %>% group_by(inclinacion_peligrosa) %>% summarise(total = n())
+
+  
+  #confusionMatrix(as.factor(result$inclinacion_peligrosa), as.factor(data_validation$inclinacion_peligrosa))
+  
+  write_csv(x = result, file = "../data/results.csv")
+    
 ```
