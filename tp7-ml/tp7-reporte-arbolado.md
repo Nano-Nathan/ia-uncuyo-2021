@@ -4,9 +4,9 @@ Primeramente se eliminaros las variables: ultima_modificacion, long, lat, area_s
 
 Luego se dividió el data frame por árboles que tienen inclinación peligrosa y los que no.
 
-Una vez separado el data frame, se duplicaron 1000 elementos al azar del conjunto que tiene inclinación peligrosa resultando un total de aproximadamente 4600 registros y se seleccionaron al azar 4600 registros del conjutno que no tenían inclinación peligrosa.
+Una vez separado el data frame, se duplicaron 1000 elementos al azar del conjunto que tiene inclinación peligrosa resultando un total de aproximadamente 4600 registros y se sekeccionó al azar esa misma cantidad del otro conjunto.
 
-Sobre el conjunto de validación se obtuvieron las siguientes métricas
+Sobre el conjunto de validación se obtuvieron las siguientes métricas:
 
 <table class="default">
   <colgroup bgcolor="#555555">
@@ -17,7 +17,7 @@ Sobre el conjunto de validación se obtuvieron las siguientes métricas
   <colgroup bgcolor="#444444">
   <colgroup bgcolor="#555555">
   <colgroup bgcolor="#444444">
-  <tr>
+  <tr bgcolor="#666666">
     <td align="center">True positive</td>
     <td align="center">True negative</td>
     <td align="center">False positive</td>

@@ -26,11 +26,11 @@
   dataTest <- read_csv(file = "../arbolado-publico-mendoza-2021/arbolado-mza-dataset-test.csv") %>%
     select(-c(ultima_modificacion, long, lat, area_seccion, nombre_seccion, circ_tronco_cm, seccion))
   
-  #data_validation_index<-sample(nrow(dataTrain),nrow(dataTrain)*0.1)
-  #
-  #data_validation<-dataTrain[data_validation_index,]
-  #
-  #dataTrain<-dataTrain[-data_validation_index,]
+  data_validation_index<-sample(nrow(dataTrain),nrow(dataTrain)*0.1)
+  
+  data_validation<-dataTrain[data_validation_index,]
+  
+  dataTrain<-dataTrain[-data_validation_index,]
   
   
   with <- dataTrain %>% filter(inclinacion_peligrosa == 1)
@@ -58,16 +58,21 @@
   rf <- randomForest(train_formula, data=dataTrain, importance=TRUE, ntree=600, mtry=2)
 
   #test the model
-  preds_tree <- predict(rf, dataTest)
+  preds_tree <- predict(rf, data_validation)
   
   #generate result
-  result <- data.frame(id = dataTest$id, preds_tree)
+  result <- data.frame(id = data_validation$id, preds_tree)
   result <- result %>% mutate(inclinacion_peligrosa = ifelse(preds_tree >= 0.5, 1, 0)) %>% select(-preds_tree)
   
   result %>% group_by(inclinacion_peligrosa) %>% summarise(total = n())
 
   
-  #confusionMatrix(as.factor(result$inclinacion_peligrosa), as.factor(data_validation$inclinacion_peligrosa))
+  
+  inlinacion_peligrosa_origin <- data_validation$inclinacion_peligrosa
+  
+  inlinacion_peligrosa_predict <- result$inclinacion_peligrosa
+  
+  confusionMatrix(as.factor(result$inclinacion_peligrosa), as.factor(data_validation$inclinacion_peligrosa), mode = "everything")
   
   write_csv(x = result, file = "../data/results.csv")
     

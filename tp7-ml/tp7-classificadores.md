@@ -1,4 +1,4 @@
-## RESULTADOS EJERCICIO 4
+## RESULTADOS
 <table class="default">
   <colgroup bgcolor="#444444">
   <colgroup bgcolor="#555555">
@@ -9,7 +9,7 @@
   <colgroup bgcolor="#444444">
   <colgroup bgcolor="#555555">
   <colgroup bgcolor="#444444">
-  <tr >
+  <tr bgcolor="#666666">
     <td align="center"></td>
     <td align="center">True positive</td>
     <td align="center">True negative</td>
