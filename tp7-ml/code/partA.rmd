@@ -271,44 +271,56 @@ cross_validation <- function (dataFrame, nFolds){
   folds <- create_folds(dataFrame, nFolds)
   
   #Decidiremos si un arbol tiene inclincacion peligrosa a partir de las variables seleccionadas
-  formulaTrain <- formula(inclinacion_peligrosa ~ altura+diametro_tronco+especie)
-  
+  train_formula<- formula(inclinacion_peligrosa ~ especie + altura + diametro_tronco)
 
   #Valores a retornar
   itera <- NULL
+  tp <- NULL
+  tn <- NULL
+  fp <- NULL
+  fn <- NULL
   specifity <- NULL
   sensivity <- NULL
   accuracy <- NULL
   precision_ <- NULL
-  media <- NULL
-  desviacion_estandar <- NULL
-  
   
   #Por cada fold a analizar
   for(i in 1:nFolds){
     #Selecciona el conjunto de entrenamiento y test
-    dataTrain <- folds[-n] %>% combine()
-    dataTest <- folds[n] %>% toDataFrame()
+    dataTrain <- folds[-i] %>% combine()
+    dataTest <- folds[i] %>% toDataFrame()
+    
     #Entrena el modelo
-    tree_model<-rpart(formula = formulaTrain, data=dataTrain)
+    data_model <- rpart(train_formula,data=dataTrain, method = "class")
+
     # obtenemos la predicción
-    prediction_class<-predict(tree_model,dataTest,type='class')
-    inclinacion_peligrosa <- dataTest$inclinacion_peligrosa
+    prediction_class <- predict(data_model, dataTest, type="class")
     
     #Calcula los resultados a devolver
-
-    compare <- data.frame(inclinacion_peligrosa, prediction_class)
+    compare <- data.frame(inclinacion_peligrosa = dataTest$inclinacion_peligrosa, prediction_class)
     results <- dataMatrix(compare)
     
     itera[i] = i
+    tp[i] = results$value[1]
+    tn[i] = results$value[2]
+    fp[i] = results$value[3]
+    fn[i] = results$value[4]
     specifity[i] = results$value[5]
     sensivity[i] = results$value[6]
     accuracy[i] = results$value[7]
     precision_[i] = results$value[8]
-    media[i] = "null"
-    desviacion_estandar[i] = "null"
   }
-  return(data.frame(itera, specifity, sensivity, accuracy, precision_, media, desviacion_estandar))
+  return(data.frame(
+    itera,
+    true_positives = tp,
+    true_negatives = tn,
+    false_positives = fp,
+    false_negatives = fn,
+    specifity, 
+    sensivity, 
+    accuracy, 
+    precision = precision_
+    ))
 }
 
 
@@ -325,8 +337,37 @@ toDataFrame <- function (dataFrame){
   for(v in dataFrame){return(v)}
 }
 
-cross_validation(trees, 6)
+trees <- read_csv(file = "../arbolado-publico-mendoza-2021/arbolado-mza-dataset.csv") %>%
+  select(-c(ultima_modificacion, long, lat, area_seccion, nombre_seccion, circ_tronco_cm, seccion))
 
 
+delete1 <- trees %>% filter(especie == "rbol del cielo")
+delete2 <- trees %>% filter(especie == "Maiten")
+
+trees <- trees[trees$id != delete1$id,]
+trees <- trees[trees$id != delete2$id,]
+
+trees %>% group_by(inclinacion_peligrosa) %>% summarise(total = n())
+
+with <- trees %>% filter(inclinacion_peligrosa == 1)
+  
+with_extra_idx <- sample(1:nrow(with),replace = F, size = 1000)
+with_extra <- with[with_extra_idx,]
+
+with <- rbind(with, with_extra)
+
+
+
+without <- trees %>% filter(inclinacion_peligrosa == 0)
+
+without_idx <- sample(1:nrow(without),replace = F, size = 4600)
+without <- without[without_idx,]
+
+
+dataFrame <- rbind(with, without)
+
+results <- cross_validation(dataFrame, 10)
+
+write_csv(results, "results.csv")
 
 ```
