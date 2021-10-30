@@ -1,3 +1,5 @@
+from _typeshed import OpenBinaryModeReading
+import math
 # MANEJADOR DE LOS DATOS
 def getData (sPath):
     #Lee el archivo
@@ -27,15 +29,46 @@ def __parseData (content):
 
 # SELECCIONA EL MEJOR ATRIBUTO
 def selectBest(attributes, examples):
-    return
-def __calcluleEntropy ():
-    return
+    #Parsea la data
+    oData = __getAttributeValues(attributes, examples)
+    #Obtiene el mejor atributo
+    best = 0
+    for v in oData:
+        #Calcula la ganancia
+        g = __Ganancia(oData, v)
+        #Si la ganancia obtenida es mayor a la actual, guarda el atributo
+        if(g > best):
+            attribute = v
+            best = g
+    #Devuelve el mejor atributo y una list con los valores que puede tomar
+    return (attribute, list(map(lambda e: e['name'], oData[attribute])))
+
 def __getAttributeValues (attributes, examples):
+    """
+        Devuelve un objeto de la forma
+        {
+            nombreAtributo: [
+                {
+                    'name': posibleValor,
+                    'count': vecesQueSeRepite,
+                    'positives': vecesQueSeJuega,
+                    'negatives': vecesQueNoSeJuega
+                }
+            ],
+            'positives': positivosTotales,
+            'negatives': negativosTotales
+        }
+    """
     #Guardara la data
-    data = {}
-    #Por cada atributo, selecciona los posibles valores
+    data = {
+        'positives': 0,
+        'negatives': 0
+    }
+    #Por cada atributo, selecciona los posibles valores t la cantidad de veces que se repite
     for e in examples:
         for a in attributes:
+            #Avisa si tiene respuesta positiva o negativa
+            bPlay = e['play'] == "yes"
             try:
                 #Inicializa o aumenta en uno el contador del valor
                 value = data[a]
@@ -44,18 +77,45 @@ def __getAttributeValues (attributes, examples):
                 if(len(object) == 0):
                     data[a].append({
                         'name': e[a],
-                        'count': 1
+                        'count': 1,
+                        'positives': 1 if bPlay else 0,
+                        'negatives': 0 if bPlay else 1
                     })
                 else:
+                    sProperty = 'positives' if bPlay else 'negatives'
                     object[0]['count'] += 1
+                    object[0][sProperty] += 1
             except:
-                #Inicializa el con un valor inicial
+                #Inicializa el valor de la variable
                 data[a] = [{
                     'name': e[a],
-                    'count': 1
+                    'count': 1,
+                    'positives': 1 if bPlay else 0,
+                    'negatives': 0 if bPlay else 1
                 }]
+            data['positives'] += 1 if bPlay else 0
+            data['negatives'] += 0 if bPlay else 1
     return data
-
+def __Ganancia(oData, attribute):
+    total = oData['positives'] + oData['negatives']
+    return __I(oData['positives'] / total, oData['negatives'] / total) - __Resto(oData)
+def __Resto(oData):
+    #Obtiene el total de veces que se juega y las que no
+    total = oData['positives'] + oData['negatives']
+    #Calcula el resto
+    resto = 0
+    for v in oData:
+        #Si no es el atributo que tiene el contador de positivos o negativos
+        if(isinstance(v, list)):
+            #Total de veces que se juega y que no para cada atributo
+            totalAttribute = v['positives'] + v['negatives']
+            resto += (totalAttribute / total) * __I( v['positives'] / totalAttribute, v['negatives'] / totalAttribute)
+    return resto
+def __I (*args):
+    I = 0
+    for Pv in args:
+        I += (-Pv) * math.log2(Pv)
+    return I
 
 #OBTIENE EL VALOR DE LA MAYORIA EN UN CONJUNTO DE DATOS PARA UN ATRIBUTO DADO
 def getMajority (examples, attribute):

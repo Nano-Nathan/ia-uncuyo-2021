@@ -1,7 +1,7 @@
 from functions import *
 
 #OBTIENE LA DATA
-oData = getData("../data/tenis.csv")
+oData = getData("../../data/tenis.csv")
 
 #CREA EL ARBOL DE DECISION
 def decisionTree (examples, attributes, value):
@@ -45,6 +45,4 @@ def decisionTree (examples, attributes, value):
             tree['children'][i]['childen'].push(subTree)
         return tree
 
-a = [1,2,3,4]
-
-print(list(map(lambda e: {e:[]}, a)))
+print(isinstance(0, int))
