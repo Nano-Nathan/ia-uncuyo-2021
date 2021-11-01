@@ -3,7 +3,7 @@ from functions import *
 result = "jugar"
 
 #OBTIENE LA DATA
-(oData, attributes) = getData("../../data/treeData.csv")
+(oData, attributes) = getData("../../data/tenis.csv")
 
 #CREA EL ARBOL DE DECISION
 def decisionTree (examples, attributes, value):
