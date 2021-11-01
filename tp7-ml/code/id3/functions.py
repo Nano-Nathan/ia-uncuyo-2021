@@ -1,5 +1,7 @@
-from _typeshed import OpenBinaryModeReading
 import math
+columnResult = "jugar"
+columnResultPositive = "si"
+
 # MANEJADOR DE LOS DATOS
 def getData (sPath):
     #Lee el archivo
@@ -13,7 +15,7 @@ def getData (sPath):
 def __parseData (content):
     ##Divide las filas
     content = content.split("\n")
-    ##Separa entre filas y titulos
+    ##Separa entre filas y atributos
     titles = content[0].split(",")
     rows = map(lambda x : x.split(","), content[1:len(content)])
     ##Guardara un vector con objetos que tendran la data de cada fila
@@ -24,7 +26,7 @@ def __parseData (content):
         for i in range(lenData):
             newData[titles[i]] = r[i]
         oData.append(newData)
-    return oData
+    return (oData, titles)
 
 
 # SELECCIONA EL MEJOR ATRIBUTO
@@ -34,16 +36,19 @@ def selectBest(attributes, examples):
     #Obtiene el mejor atributo
     best = 0
     for v in oData:
-        #Calcula la ganancia
-        g = __Ganancia(oData, v)
-        #Si la ganancia obtenida es mayor a la actual, guarda el atributo
-        if(g > best):
-            attribute = v
-            best = g
+        if(v != 'positives' and v != "negatives"):
+            #Calcula la ganancia
+            g = __Ganancia(oData, v)
+            #Si la ganancia obtenida es mayor a la actual, guarda el atributo
+            if(g > best):
+                attribute = v
+                best = g
     #Devuelve el mejor atributo y una list con los valores que puede tomar
     return (attribute, list(map(lambda e: e['name'], oData[attribute])))
 
 def __getAttributeValues (attributes, examples):
+    global columnResult
+    global columnResultPositive
     """
         Devuelve un objeto de la forma
         {
@@ -64,41 +69,49 @@ def __getAttributeValues (attributes, examples):
         'positives': 0,
         'negatives': 0
     }
-    #Por cada atributo, selecciona los posibles valores t la cantidad de veces que se repite
+    #Agrega los atributos
+    for a in attributes:
+        data[a] = []
+    #Selecciona los posibles valores, la cantidad de veces que se repite y las decisiones positivas y negativas
     for e in examples:
+        #Avisa si tiene respuesta positiva o negativa
+        bPlay = e[columnResult] == columnResultPositive
         for a in attributes:
-            #Avisa si tiene respuesta positiva o negativa
-            bPlay = e['play'] == "yes"
-            try:
-                #Inicializa o aumenta en uno el contador del valor
-                value = data[a]
-                object = list(filter(lambda e: e['name'] == e[a], value))
-                #No hay objeto para el valor seleccionado, se crea
-                if(len(object) == 0):
-                    data[a].append({
+            if(a != columnResult):
+                try:
+                    #Inicializa o aumenta en uno el contador del valor
+                    posiblesValues = data[a]
+                    object = [x for x in posiblesValues if x['name'] == e[a]]
+                    ##object = filter(lambda e: e['name'] == e[a], posiblesValues)
+                    #No hay objeto para el valor seleccionado, se crea
+                    if(len(object) == 0):
+                        data[a].append({
+                            'name': e[a],
+                            'count': 1,
+                            'positives': 1 if bPlay else 0,
+                            'negatives': 0 if bPlay else 1
+                        })
+                    else:
+                        sProperty = 'positives' if bPlay else 'negatives'
+                        object[0]['count'] += 1
+                        object[0][sProperty] += 1
+                except:
+                    #Inicializa el valor de la variable
+                    data[a] = [{
                         'name': e[a],
                         'count': 1,
                         'positives': 1 if bPlay else 0,
                         'negatives': 0 if bPlay else 1
-                    })
-                else:
-                    sProperty = 'positives' if bPlay else 'negatives'
-                    object[0]['count'] += 1
-                    object[0][sProperty] += 1
-            except:
-                #Inicializa el valor de la variable
-                data[a] = [{
-                    'name': e[a],
-                    'count': 1,
-                    'positives': 1 if bPlay else 0,
-                    'negatives': 0 if bPlay else 1
-                }]
-            data['positives'] += 1 if bPlay else 0
-            data['negatives'] += 0 if bPlay else 1
+                    }]
+        data['positives'] += 1 if bPlay else 0
+        data['negatives'] += 0 if bPlay else 1
     return data
 def __Ganancia(oData, attribute):
     total = oData['positives'] + oData['negatives']
-    return __I(oData['positives'] / total, oData['negatives'] / total) - __Resto(oData)
+    #Calcula las probabilidades de los positivos y los negativos
+    Ppositives = oData['positives'] / total
+    Pnegatives = oData['negatives'] / total
+    return __I(Ppositives, Pnegatives) - __Resto(oData)
 def __Resto(oData):
     #Obtiene el total de veces que se juega y las que no
     total = oData['positives'] + oData['negatives']
@@ -148,8 +161,32 @@ def getExamplesWith(examples, attribute, value):
 
 #VALIDA SI TIENE MAS DE UNA CLASIFICACION
 def isOneValue(examples):
-    startClasiffier = examples[0]['play']
-    for i in range(1, len(startClasiffier)):
-        if(startClasiffier[i]['play'] != startClasiffier):
+    global columnResult
+    startClasiffier = examples[0][columnResult]
+    for i in range(1, len(examples)):
+        if(examples[i][columnResult] != startClasiffier):
             return False
     return True
+
+#MUESTRA EL ARBOL POR PANTALLA
+
+def showTree(tree):
+    print(" "+tree['name'])
+    __showTreeR(tree['children'], 2) 
+def __showTreeR (children, i):
+    for c in children:
+        try:
+            print("| "*(i-1) +" "+c['name'] )
+            newC = c['children']
+            __showTreeR(newC, i+1)
+        except:
+            try:
+                print("| "*(i-1) +" "+ c['value'])
+                newC = c['children']
+                __showTreeR(newC, i+1)
+            except:
+                #desicion = ("| "*(i-1))
+                #print(desicion)
+                print(("| "*(i-1)) + "  " +c['desicion'])
+
+

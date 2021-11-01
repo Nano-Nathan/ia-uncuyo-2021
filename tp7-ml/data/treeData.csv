@@ -1,15 +1,15 @@
-perspectiva, temperatura, humedad, viento, jugar
-soleado, caliente, alto, falso, no
-soleado, caliente, alto, cierto, no
-nublado, caliente, alto, falso, sí
-lluvioso, templado, alto, falso, si
-lluvioso, fresco, normal, falso, si
-lluvioso, fresco, normal, cierto, no
-nublado, fresco, normal, cierto, sí
-soleado, suave, alto, falso, no
-soleado, fresco, normal, falso, sí
-lluvioso, templado, normal, falso, si
-soleado, suave, normal, cierto, sí
-nublado, suave, alto, cierto, sí
-nublado, caliente, normal, falso, sí
-lluvioso, templado, alto, cierto, no
+perspectiva,temperatura,humedad,viento,jugar
+soleado,caliente,alto,falso,no
+soleado,caliente,alto,cierto,no
+nublado,caliente,alto,falso,si
+lluvioso,templado,alto,falso,si
+lluvioso,fresco,normal,falso,si
+lluvioso,fresco,normal,cierto,no
+nublado,fresco,normal,cierto,si
+soleado,suave,alto,falso,no
+soleado,fresco,normal,falso,si
+lluvioso,templado,normal,falso,si
+soleado,suave,normal,cierto,si
+nublado,suave,alto,cierto,si
+nublado,caliente,normal,falso,si
+lluvioso,templado,alto,cierto,no
