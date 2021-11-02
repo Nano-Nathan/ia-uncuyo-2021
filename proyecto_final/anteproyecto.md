@@ -21,13 +21,21 @@ Los problemas de búsqueda en árboles o grafos es algo que lleva un costo compu
 ## Actividades.
 
 __1:__ Recopilacion de datos y mapas [2 días]
+
 __2:__ Adaptar datos al problema [5 días]
+
 __3:__ Implementación de A* [3 días]
+
 __4:__ Ejecutar A* [2 días]
+
 __5:__ Implementación del algoritmo genético [4 días]
+
 __6:__ Ejecutar Genético [2 días]
+
 __7:__ Ajustes y correciones [5 días]
+
 __8:__ Analizar y comparar los resultados [2 días]  
+
 __9:__ Elaborar informe final [20 días]
 
 ## Cronograma estimado de actividades
