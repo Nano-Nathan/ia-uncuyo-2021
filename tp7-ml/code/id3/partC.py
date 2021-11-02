@@ -1,6 +1,6 @@
 from functions import *
 
-result = "jugar"
+result = "play"
 
 #OBTIENE LA DATA
 (oData, attributes) = getData("../../data/tenis.csv")

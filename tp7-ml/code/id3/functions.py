@@ -1,6 +1,6 @@
 import math
-columnResult = "jugar"
-columnResultPositive = "si"
+columnResult = "play"
+columnResultPositive = "yes"
 
 # MANEJADOR DE LOS DATOS
 def getData (sPath):
